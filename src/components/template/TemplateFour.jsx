@@ -90,9 +90,7 @@ export default function TemplateFour({ data, contentRef }) {
               </div>
             ))}
           </section>
-        </div>
-        {/* Page 2 */}
-        <div className="a4-page" style={pageStyle}>
+          
           {/* Education */}
           <section style={{ marginBottom: "1.5rem" }}>
             <h2 style={sectionHeaderStyle}>Education</h2>
@@ -105,6 +103,10 @@ export default function TemplateFour({ data, contentRef }) {
               </div>
             ))}
           </section>
+        </div>
+        {/* Page 2 */}
+        <div className="a4-page" style={pageStyle}>
+          
 
            {/* Projects */}
           <section style={{ marginBottom: "1.5rem" }}>
@@ -120,7 +122,7 @@ export default function TemplateFour({ data, contentRef }) {
               </div>
             ))}
           </section>
-          
+
         </div>
        
       </div>
