@@ -8,6 +8,7 @@ import TemplateTwo from './components/template/TemplateTwo';
 import TemplateThree from './components/template/TemplateThree';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import TemplateFour from './components/template/TemplateFour';
 
 export default function App() {
   const contentRef = useRef();
@@ -74,6 +75,7 @@ export default function App() {
           selected == "templateOne" ? <TemplateOne data={resumeData} contentRef={contentRef} />
             : selected == "templateTwo" ? <TemplateTwo data={resumeData} contentRef={contentRef}/>
               : selected == "templateThree" ? <TemplateThree data={resumeData} contentRef={contentRef}/>
+                : selected == 'templateFour' ? <TemplateFour data={resumeData} contentRef={contentRef} /> 
                 : ""
         }
         {/* <TemplateOne data={resumeData} /> */}
