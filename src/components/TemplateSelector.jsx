@@ -25,6 +25,8 @@ export default function TemplateSelector({ selected, setSelected, onSelect }) {
             <option value="templateOne">Template 1</option>
             <option value="templateTwo">Template 2</option>
             <option value="templateThree">Template 3</option>
+            <option value="templateFour">Template 4</option>
+            <option value="templateFive">Template 5</option>
           </select>
         </div>
 
