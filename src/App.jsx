@@ -47,6 +47,7 @@ export default function App() {
       const canvas = await html2canvas(page, {
         scale: 2,
         useCORS: true,
+        windowWidth: 794,
       });
 
       const imgData = canvas.toDataURL("image/png");

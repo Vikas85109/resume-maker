@@ -68,7 +68,8 @@ const initialData = {
         "Tech Stack: React.js, Context API, Tailwind, API",
         "Features: Login, Logout, Product List, Cart, Add to Cart",
         "Integrated Fake Store API",
-        "Added Search, Filter, Sorting, Cart Badge"
+        "Added Search, Filter, Sorting, Cart Badge",
+        
       ]
     },
     {
@@ -93,7 +94,7 @@ const initialData = {
   ],
   languages: ["English - Professional", "Hindi - Native"],
   certificate: "Certificate Name Here"
-};;
+};
 
 export default initialData;
 
