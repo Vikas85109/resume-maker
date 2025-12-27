@@ -83,6 +83,12 @@ export const sampleResumeData: IResumeData = {
 
 export const templates: ITemplate[] = [
   {
+    id: 'ats',
+    name: 'ATS Friendly',
+    description: 'Simple format optimized for Applicant Tracking Systems',
+    thumbnail: '/templates/ats.png',
+  },
+  {
     id: 'classic',
     name: 'Classic',
     description: 'Traditional two-column layout with a professional feel',
@@ -117,5 +123,23 @@ export const templates: ITemplate[] = [
     name: 'Executive',
     description: 'Elegant design for senior leadership roles',
     thumbnail: '/templates/executive.png',
+  },
+  {
+    id: 'tech',
+    name: 'Tech',
+    description: 'Dark theme for developers and engineers',
+    thumbnail: '/templates/tech.png',
+  },
+  {
+    id: 'elegant',
+    name: 'Elegant',
+    description: 'Sophisticated serif design with gold accents',
+    thumbnail: '/templates/elegant.png',
+  },
+  {
+    id: 'bold',
+    name: 'Bold',
+    description: 'High contrast design that makes a statement',
+    thumbnail: '/templates/bold.png',
   },
 ];

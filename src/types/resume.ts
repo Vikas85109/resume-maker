@@ -50,7 +50,7 @@ export interface IResumeData {
 }
 
 // Template Types
-export type TemplateId = 'classic' | 'modern' | 'minimal' | 'professional' | 'creative' | 'executive';
+export type TemplateId = 'ats' | 'classic' | 'modern' | 'minimal' | 'professional' | 'creative' | 'executive' | 'tech' | 'elegant' | 'bold';
 
 export interface ITemplate {
   id: TemplateId;
