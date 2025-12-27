@@ -23,7 +23,7 @@ const TextArea: React.FC<TextAreaProps> = ({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-xs font-medium text-slate-600 mb-1.5"
+          className="block text-sm font-medium text-gray-700 mb-1.5"
         >
           {label}
         </label>
@@ -32,21 +32,21 @@ const TextArea: React.FC<TextAreaProps> = ({
         id={inputId}
         value={value}
         className={`
-          w-full px-3 py-2 text-sm text-slate-900
-          bg-white border border-slate-200 rounded-lg
-          placeholder:text-slate-400
-          focus:outline-none focus:border-slate-400
-          disabled:bg-slate-50 disabled:text-slate-400
-          transition-colors resize-none
-          ${error ? 'border-red-400' : ''}
+          w-full px-3 py-2.5 text-sm text-gray-900
+          bg-white border border-gray-300 rounded-md
+          placeholder:text-gray-400
+          focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500
+          disabled:bg-gray-50 disabled:text-gray-400
+          transition-all resize-none
+          ${error ? 'border-red-400 focus:ring-red-500 focus:border-red-500' : ''}
           ${className}
         `}
         {...props}
       />
-      <div className="flex justify-between mt-1">
-        {error && <p className="text-xs text-red-500">{error}</p>}
+      <div className="flex justify-between mt-1.5">
+        {error && <p className="text-sm text-red-500">{error}</p>}
         {charLimit && (
-          <p className={`text-xs ml-auto ${charCount > charLimit ? 'text-red-500' : 'text-slate-400'}`}>
+          <p className={`text-sm ml-auto ${charCount > charLimit ? 'text-red-500' : 'text-gray-400'}`}>
             {charCount}/{charLimit}
           </p>
         )}

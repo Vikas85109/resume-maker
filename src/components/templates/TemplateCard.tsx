@@ -11,27 +11,20 @@ interface TemplateCardProps {
 
 const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSelect }) => {
   const TemplateComponent = templateComponents[template.id];
-  // A4: 794 x 1123, scale to fit card width (~280px in 3-col grid)
-  const scale = 0.35;
+  const scale = 0.32;
 
   return (
-    <button
-      onClick={onSelect}
+    <div
       className={`
-        group text-left w-full rounded-xl overflow-hidden transition-all duration-200 bg-white shadow-sm
-        ${isSelected
-          ? 'ring-2 ring-slate-900 ring-offset-2'
-          : 'hover:ring-2 hover:ring-slate-300 hover:ring-offset-2 hover:shadow-md'
-        }
+        group bg-white rounded-lg overflow-hidden transition-all duration-200 shadow-md hover:shadow-xl
+        ${isSelected ? 'ring-2 ring-purple-600 ring-offset-2' : ''}
       `}
     >
-      {/* Full A4 Template Preview */}
+      {/* Template Preview */}
       <div
-        className="relative overflow-hidden bg-slate-50"
-        style={{
-          width: '100%',
-          height: `${1123 * scale}px`
-        }}
+        className="relative overflow-hidden bg-gray-100 cursor-pointer"
+        style={{ height: `${1123 * scale}px` }}
+        onClick={onSelect}
       >
         <div
           className="absolute top-0 left-1/2 origin-top"
@@ -44,14 +37,29 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSel
         >
           <TemplateComponent data={sampleResumeData} />
         </div>
+
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-purple-600/0 group-hover:bg-purple-600/10 transition-colors duration-200" />
       </div>
 
-      {/* Label */}
-      <div className="p-3 border-t border-slate-100">
-        <p className="font-medium text-slate-900 text-sm">{template.name}</p>
-        <p className="text-xs text-slate-400 mt-0.5">{template.description}</p>
+      {/* Card Footer */}
+      <div className="p-4 border-t border-gray-100">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <h3 className="font-semibold text-gray-900">{template.name}</h3>
+            <p className="text-sm text-gray-500 mt-0.5">{template.description}</p>
+          </div>
+        </div>
+
+        {/* Use Template Button */}
+        <button
+          onClick={onSelect}
+          className="w-full py-2.5 px-4 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md transition-colors duration-200"
+        >
+          Use This Template
+        </button>
       </div>
-    </button>
+    </div>
   );
 };
 
