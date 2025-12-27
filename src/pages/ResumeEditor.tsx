@@ -5,7 +5,6 @@ import ExperienceForm from '@/components/forms/ExperienceForm';
 import EducationForm from '@/components/forms/EducationForm';
 import SkillsForm from '@/components/forms/SkillsForm';
 import ProjectsForm from '@/components/forms/ProjectsForm';
-import Button from '@/components/ui/Button';
 import { templateComponents } from '@/components/templates';
 import { useApp } from '@/context/AppContext';
 import { useResume } from '@/context/ResumeContext';
@@ -16,7 +15,7 @@ const ResumeEditor: React.FC = () => {
   const { resumeData } = useResume();
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
-  const [previewScale, setPreviewScale] = useState(0.5);
+  const [previewScale, setPreviewScale] = useState(0.55);
 
   const TemplateComponent = templateComponents[selectedTemplate];
 
@@ -36,43 +35,45 @@ const ResumeEditor: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      {/* Top Bar */}
-      <div className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50">
+      {/* Minimal Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div className="flex items-center justify-between h-14 px-4">
+          {/* Left */}
           <div className="flex items-center gap-4">
             <button
               onClick={goToTemplates}
-              className="flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors"
+              className="flex items-center gap-1.5 text-slate-500 hover:text-slate-900 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              <span className="text-sm font-medium">Templates</span>
+              <span className="text-sm">Back</span>
             </button>
-            <div className="h-6 w-px bg-slate-200" />
-            <span className="text-sm text-slate-500">
-              Editing: <span className="font-medium text-slate-700 capitalize">{selectedTemplate}</span> template
+
+            <div className="h-5 w-px bg-slate-200" />
+
+            <span className="text-sm text-slate-600">
+              <span className="capitalize">{selectedTemplate}</span> template
             </span>
           </div>
 
+          {/* Right */}
           <div className="flex items-center gap-3">
-            {/* Zoom Controls */}
-            <div className="flex items-center gap-2 bg-slate-100 rounded-lg px-2 py-1">
+            {/* Zoom */}
+            <div className="flex items-center gap-1 text-slate-400">
               <button
                 onClick={() => setPreviewScale((s) => Math.max(0.3, s - 0.1))}
-                className="p-1 text-slate-500 hover:text-slate-700"
+                className="p-1.5 hover:text-slate-600 hover:bg-slate-100 rounded"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                 </svg>
               </button>
-              <span className="text-xs font-medium text-slate-600 w-10 text-center">
-                {Math.round(previewScale * 100)}%
-              </span>
+              <span className="text-xs w-8 text-center">{Math.round(previewScale * 100)}%</span>
               <button
                 onClick={() => setPreviewScale((s) => Math.min(1, s + 0.1))}
-                className="p-1 text-slate-500 hover:text-slate-700"
+                className="p-1.5 hover:text-slate-600 hover:bg-slate-100 rounded"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -80,61 +81,47 @@ const ResumeEditor: React.FC = () => {
               </button>
             </div>
 
-            <Button
-              variant="primary"
+            {/* Download */}
+            <button
               onClick={handleExport}
-              isLoading={isExporting}
-              leftIcon={
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              }
+              disabled={isExporting}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 disabled:opacity-50 transition-colors"
             >
+              {isExporting ? (
+                <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              )}
               Download PDF
-            </Button>
+            </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="max-w-[1800px] mx-auto flex">
-        {/* Left Panel - Form */}
-        <div className="w-[420px] flex-shrink-0 h-[calc(100vh-56px)] overflow-y-auto bg-white border-r border-slate-200">
-          <div className="p-4 space-y-3">
-            <div className="mb-4">
-              <h2 className="text-lg font-bold text-slate-900">Edit Your Resume</h2>
-              <p className="text-sm text-slate-500">Fill in your details below</p>
-            </div>
-
+      {/* Main Layout */}
+      <div className="flex">
+        {/* Left Panel - Forms */}
+        <div className="w-[380px] flex-shrink-0 h-[calc(100vh-56px)] overflow-y-auto bg-white border-r border-slate-200">
+          <div className="p-5 space-y-4">
             <PersonalInfoForm />
             <SummaryForm />
             <ExperienceForm />
             <EducationForm />
             <SkillsForm />
             <ProjectsForm />
-
-            <div className="pt-4 pb-8">
-              <Button
-                variant="ghost"
-                onClick={goToTemplates}
-                className="w-full"
-                leftIcon={
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-                  </svg>
-                }
-              >
-                Change Template
-              </Button>
-            </div>
           </div>
         </div>
 
         {/* Right Panel - Preview */}
-        <div className="flex-1 h-[calc(100vh-56px)] overflow-auto bg-slate-200 p-8">
+        <div className="flex-1 h-[calc(100vh-56px)] overflow-auto p-8">
           <div className="flex justify-center">
             <div
-              className="origin-top transition-transform duration-200"
+              className="origin-top transition-transform duration-150"
               style={{ transform: `scale(${previewScale})` }}
             >
               <div ref={previewRef}>

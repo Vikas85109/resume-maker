@@ -5,8 +5,6 @@ interface TagInputProps {
   tags: string[];
   onChange: (tags: string[]) => void;
   placeholder?: string;
-  error?: string;
-  maxTags?: number;
 }
 
 const TagInput: React.FC<TagInputProps> = ({
@@ -14,8 +12,6 @@ const TagInput: React.FC<TagInputProps> = ({
   tags,
   onChange,
   placeholder = 'Type and press Enter',
-  error,
-  maxTags,
 }) => {
   const [inputValue, setInputValue] = useState('');
 
@@ -30,11 +26,7 @@ const TagInput: React.FC<TagInputProps> = ({
 
   const addTag = () => {
     const trimmedValue = inputValue.trim();
-    if (
-      trimmedValue &&
-      !tags.includes(trimmedValue) &&
-      (!maxTags || tags.length < maxTags)
-    ) {
+    if (trimmedValue && !tags.includes(trimmedValue)) {
       onChange([...tags, trimmedValue]);
       setInputValue('');
     }
@@ -47,36 +39,24 @@ const TagInput: React.FC<TagInputProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-slate-700 mb-1">
+        <label className="block text-xs font-medium text-slate-600 mb-1.5">
           {label}
         </label>
       )}
-      <div
-        className={`
-          flex flex-wrap gap-2 p-2 min-h-[42px]
-          bg-white border rounded-lg
-          focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500
-          transition-colors duration-200
-          ${error ? 'border-red-500' : 'border-slate-300'}
-        `}
-      >
+      <div className="flex flex-wrap gap-1.5 p-2 min-h-[42px] bg-white border border-slate-200 rounded-lg focus-within:border-slate-400 transition-colors">
         {tags.map((tag, index) => (
           <span
             key={index}
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-sm font-medium text-indigo-700 bg-indigo-50 rounded-full"
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-xs text-slate-700 bg-slate-100 rounded"
           >
             {tag}
             <button
               type="button"
               onClick={() => removeTag(index)}
-              className="text-indigo-500 hover:text-indigo-700 focus:outline-none"
+              className="text-slate-400 hover:text-slate-600"
             >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </span>
@@ -88,16 +68,9 @@ const TagInput: React.FC<TagInputProps> = ({
           onKeyDown={handleKeyDown}
           onBlur={addTag}
           placeholder={tags.length === 0 ? placeholder : ''}
-          disabled={maxTags !== undefined && tags.length >= maxTags}
-          className="flex-1 min-w-[120px] text-sm text-slate-900 bg-transparent border-none outline-none placeholder:text-slate-400"
+          className="flex-1 min-w-[100px] text-sm bg-transparent border-none outline-none placeholder:text-slate-400"
         />
       </div>
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
-      {maxTags && (
-        <p className="mt-1 text-sm text-slate-500">
-          {tags.length}/{maxTags} tags
-        </p>
-      )}
     </div>
   );
 };
