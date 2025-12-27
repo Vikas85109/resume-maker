@@ -1,0 +1,1877 @@
+{
+  "projectName": "Resume Builder",
+  "version": "2.0",
+  "description": "A comprehensive resume builder similar to Jobseeker.com with guided creation, template selection, AI assistance, and multi-format export",
+
+  "userFlowAndUX": {
+    "landingPage": {
+      "layout": "hero-based",
+      "components": [
+        {
+          "name": "Hero Section",
+          "elements": [
+            "Headline: 'Create Your Professional Resume in Minutes'",
+            "Subheadline: 'Choose from ATS-friendly templates, get AI-powered suggestions, and land your dream job'",
+            "Primary CTA: 'Build My Resume' (large button)",
+            "Secondary CTA: 'View Templates'",
+            "Trust badges: '10,000+ resumes created', 'ATS Optimized', 'Free to start'"
+          ]
+        },
+        {
+          "name": "Template Preview Carousel",
+          "elements": [
+            "3-5 featured templates with hover preview",
+            "Template names and use-case labels (e.g., 'Modern - Tech Jobs')"
+          ]
+        },
+        {
+          "name": "How It Works Section",
+          "steps": [
+            "Step 1: Fill in your details",
+            "Step 2: Choose a template",
+            "Step 3: Customize & preview",
+            "Step 4: Download your resume"
+          ]
+        },
+        {
+          "name": "Features Section",
+          "features": [
+            "AI-powered writing assistance",
+            "ATS-friendly templates",
+            "Real-time preview",
+            "Multiple export formats",
+            "LinkedIn import",
+            "Cover letter builder"
+          ]
+        },
+        {
+          "name": "Testimonials Section",
+          "description": "User success stories with photos and job outcomes"
+        },
+        {
+          "name": "Pricing Section",
+          "description": "Free vs Premium comparison table"
+        },
+        {
+          "name": "Footer",
+          "links": ["About", "Templates", "Resume Examples", "Blog", "Help", "Privacy", "Terms"]
+        }
+      ]
+    },
+
+    "guidedCreationProcess": {
+      "type": "multi-step-wizard",
+      "progressIndicator": "stepper-with-labels",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Personal Details",
+          "description": "Basic contact information",
+          "canSkip": false,
+          "estimatedTime": "1-2 minutes"
+        },
+        {
+          "step": 2,
+          "name": "Professional Summary",
+          "description": "Career objective or summary",
+          "canSkip": true,
+          "aiAssist": true,
+          "estimatedTime": "2-3 minutes"
+        },
+        {
+          "step": 3,
+          "name": "Work Experience",
+          "description": "Employment history",
+          "canSkip": true,
+          "aiAssist": true,
+          "estimatedTime": "5-10 minutes"
+        },
+        {
+          "step": 4,
+          "name": "Education",
+          "description": "Academic background",
+          "canSkip": true,
+          "estimatedTime": "2-3 minutes"
+        },
+        {
+          "step": 5,
+          "name": "Skills",
+          "description": "Technical and soft skills",
+          "canSkip": true,
+          "aiAssist": true,
+          "estimatedTime": "2-3 minutes"
+        },
+        {
+          "step": 6,
+          "name": "Additional Sections",
+          "description": "Certifications, projects, languages, etc.",
+          "canSkip": true,
+          "estimatedTime": "2-5 minutes"
+        },
+        {
+          "step": 7,
+          "name": "Choose Template",
+          "description": "Select and customize template",
+          "canSkip": false,
+          "estimatedTime": "2-3 minutes"
+        },
+        {
+          "step": 8,
+          "name": "Preview & Download",
+          "description": "Final review and export",
+          "canSkip": false,
+          "estimatedTime": "1-2 minutes"
+        }
+      ],
+      "navigation": {
+        "backButton": true,
+        "nextButton": true,
+        "saveProgressButton": true,
+        "skipSectionLink": true
+      }
+    },
+
+    "templateSelectionScreen": {
+      "layout": "grid-3-columns",
+      "features": [
+        "Large template thumbnails",
+        "Hover to see full preview",
+        "Filter by category (Modern, Classic, Creative, Minimalist)",
+        "Filter by industry (Tech, Finance, Creative, Healthcare)",
+        "Free vs Premium badges",
+        "ATS-friendly indicator",
+        "Preview with user's actual data",
+        "Quick customize button"
+      ],
+      "templateCategories": [
+        {
+          "name": "Classic",
+          "description": "Traditional, professional layouts",
+          "bestFor": "Corporate, Finance, Legal"
+        },
+        {
+          "name": "Modern",
+          "description": "Clean, contemporary designs",
+          "bestFor": "Tech, Startups, Marketing"
+        },
+        {
+          "name": "Creative",
+          "description": "Bold, unique layouts with graphics",
+          "bestFor": "Design, Arts, Media"
+        },
+        {
+          "name": "Minimalist",
+          "description": "Simple, content-focused designs",
+          "bestFor": "Any industry, ATS-optimized"
+        },
+        {
+          "name": "Executive",
+          "description": "Premium, sophisticated layouts",
+          "bestFor": "Senior roles, C-level positions"
+        }
+      ]
+    },
+
+    "livePreview": {
+      "layout": "split-screen",
+      "leftPanel": "Form editor (scrollable)",
+      "rightPanel": "Resume preview (fixed/sticky)",
+      "features": [
+        "Real-time updates as user types",
+        "Zoom controls (50%, 75%, 100%, 125%)",
+        "Page navigation for multi-page resumes",
+        "Toggle between templates without losing data",
+        "Mobile-responsive preview",
+        "Print preview mode",
+        "Full-screen preview option"
+      ],
+      "synchronization": "instant (debounced 100ms)"
+    },
+
+    "downloadOptions": {
+      "formats": [
+        {
+          "format": "PDF",
+          "description": "Best for most applications",
+          "quality": "High (300 DPI)",
+          "fileSize": "~100-300KB",
+          "free": true
+        },
+        {
+          "format": "DOCX",
+          "description": "Editable in Microsoft Word",
+          "quality": "Native formatting",
+          "fileSize": "~50-150KB",
+          "free": true
+        },
+        {
+          "format": "TXT",
+          "description": "Plain text for ATS systems",
+          "quality": "Text only",
+          "fileSize": "~5-15KB",
+          "free": true
+        },
+        {
+          "format": "PNG",
+          "description": "Image format for sharing",
+          "quality": "High resolution",
+          "fileSize": "~500KB-1MB",
+          "premium": true
+        }
+      ],
+      "additionalOptions": [
+        "Download with/without photo",
+        "Single page vs multi-page",
+        "Color vs grayscale",
+        "With/without watermark (free tier)"
+      ]
+    },
+
+    "resumeExamplesAndSuggestions": {
+      "categories": [
+        "By Job Title (Software Engineer, Marketing Manager, Nurse, Teacher, etc.)",
+        "By Experience Level (Entry-level, Mid-career, Senior, Executive)",
+        "By Industry (Tech, Healthcare, Finance, Education, etc.)",
+        "By Situation (Career change, Gap explanation, Recent graduate)"
+      ],
+      "features": [
+        "Searchable example library",
+        "One-click 'Use This Example' button",
+        "Breakdown of what makes each example effective",
+        "Before/After comparisons",
+        "Tips specific to each job type"
+      ]
+    },
+
+    "linkedInImport": {
+      "method": "OAuth 2.0 integration",
+      "dataImported": [
+        "Name and contact info",
+        "Profile headline → Professional summary",
+        "Work experience with descriptions",
+        "Education history",
+        "Skills and endorsements",
+        "Certifications",
+        "Profile photo"
+      ],
+      "userControl": [
+        "Review imported data before applying",
+        "Select which sections to import",
+        "Edit imported content",
+        "Option to manually upload LinkedIn PDF export"
+      ]
+    }
+  },
+
+  "formSectionsAndFields": {
+    "personalDetails": {
+      "required": ["firstName", "lastName", "email", "phone"],
+      "optional": ["photo", "address", "city", "country", "postalCode", "linkedIn", "portfolio", "github", "dateOfBirth", "nationality", "drivingLicense"],
+      "fields": [
+        {
+          "name": "firstName",
+          "type": "text",
+          "label": "First Name",
+          "placeholder": "John",
+          "required": true,
+          "validation": "min 1 char, max 50 chars"
+        },
+        {
+          "name": "lastName",
+          "type": "text",
+          "label": "Last Name",
+          "placeholder": "Doe",
+          "required": true,
+          "validation": "min 1 char, max 50 chars"
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email Address",
+          "placeholder": "john.doe@email.com",
+          "required": true,
+          "validation": "valid email format"
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 123-4567",
+          "required": true,
+          "validation": "valid phone format"
+        },
+        {
+          "name": "photo",
+          "type": "file",
+          "label": "Profile Photo",
+          "accept": "image/jpeg, image/png, image/webp",
+          "maxSize": "5MB",
+          "required": false,
+          "cropper": true
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "label": "Street Address",
+          "placeholder": "123 Main Street",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "text",
+          "label": "City",
+          "placeholder": "New York",
+          "required": false
+        },
+        {
+          "name": "country",
+          "type": "select",
+          "label": "Country",
+          "options": "country-list",
+          "required": false
+        },
+        {
+          "name": "postalCode",
+          "type": "text",
+          "label": "Postal/ZIP Code",
+          "placeholder": "10001",
+          "required": false
+        },
+        {
+          "name": "linkedIn",
+          "type": "url",
+          "label": "LinkedIn Profile",
+          "placeholder": "linkedin.com/in/johndoe",
+          "required": false,
+          "validation": "valid URL"
+        },
+        {
+          "name": "portfolio",
+          "type": "url",
+          "label": "Portfolio/Website",
+          "placeholder": "www.johndoe.com",
+          "required": false
+        },
+        {
+          "name": "github",
+          "type": "url",
+          "label": "GitHub Profile",
+          "placeholder": "github.com/johndoe",
+          "required": false
+        },
+        {
+          "name": "dateOfBirth",
+          "type": "date",
+          "label": "Date of Birth",
+          "required": false,
+          "note": "Optional - only include if required in your region"
+        },
+        {
+          "name": "nationality",
+          "type": "text",
+          "label": "Nationality",
+          "required": false
+        },
+        {
+          "name": "drivingLicense",
+          "type": "text",
+          "label": "Driving License",
+          "placeholder": "Class B",
+          "required": false
+        }
+      ]
+    },
+
+    "professionalSummary": {
+      "fields": [
+        {
+          "name": "summary",
+          "type": "richtext",
+          "label": "Professional Summary",
+          "placeholder": "Describe your professional background, key achievements, and career goals...",
+          "maxLength": 500,
+          "minLength": 50,
+          "aiSuggestions": true,
+          "wordCount": true,
+          "characterCount": true
+        }
+      ],
+      "aiFeatures": [
+        "Generate summary based on experience",
+        "Tailor to specific job title",
+        "Improve existing summary",
+        "Multiple style options (formal, conversational, impactful)"
+      ],
+      "tips": [
+        "Keep it 2-4 sentences",
+        "Include years of experience",
+        "Mention key skills and achievements",
+        "Tailor to the job you're applying for"
+      ]
+    },
+
+    "workExperience": {
+      "isRepeatable": true,
+      "maxEntries": 15,
+      "fields": [
+        {
+          "name": "jobTitle",
+          "type": "text",
+          "label": "Job Title",
+          "placeholder": "Software Engineer",
+          "required": true,
+          "autocomplete": "job-titles-database"
+        },
+        {
+          "name": "company",
+          "type": "text",
+          "label": "Company Name",
+          "placeholder": "Google",
+          "required": true,
+          "autocomplete": "companies-database"
+        },
+        {
+          "name": "location",
+          "type": "text",
+          "label": "Location",
+          "placeholder": "San Francisco, CA",
+          "required": false
+        },
+        {
+          "name": "startDate",
+          "type": "month-year",
+          "label": "Start Date",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "month-year",
+          "label": "End Date",
+          "required": false,
+          "conditionalOn": "!currentlyWorking"
+        },
+        {
+          "name": "currentlyWorking",
+          "type": "checkbox",
+          "label": "I currently work here",
+          "default": false
+        },
+        {
+          "name": "responsibilities",
+          "type": "richtext-bullets",
+          "label": "Responsibilities & Achievements",
+          "placeholder": "• Led a team of 5 developers...\n• Increased revenue by 25%...",
+          "aiSuggestions": true,
+          "bulletPoints": true,
+          "minBullets": 2,
+          "maxBullets": 8
+        }
+      ],
+      "aiFeatures": [
+        "Generate bullet points based on job title",
+        "Improve existing descriptions",
+        "Add metrics and quantifiable achievements",
+        "Suggest action verbs",
+        "ATS keyword optimization"
+      ],
+      "sortable": true,
+      "sortOptions": ["Most Recent First", "Oldest First", "Custom Order"]
+    },
+
+    "education": {
+      "isRepeatable": true,
+      "maxEntries": 10,
+      "fields": [
+        {
+          "name": "degree",
+          "type": "select-or-custom",
+          "label": "Degree",
+          "options": [
+            "High School Diploma",
+            "Associate's Degree",
+            "Bachelor's Degree",
+            "Master's Degree",
+            "Doctoral Degree (Ph.D.)",
+            "Professional Degree (MD, JD, etc.)",
+            "Certificate",
+            "Bootcamp",
+            "Other"
+          ],
+          "required": true
+        },
+        {
+          "name": "fieldOfStudy",
+          "type": "text",
+          "label": "Field of Study",
+          "placeholder": "Computer Science",
+          "required": true
+        },
+        {
+          "name": "school",
+          "type": "text",
+          "label": "School/University",
+          "placeholder": "Stanford University",
+          "required": true,
+          "autocomplete": "schools-database"
+        },
+        {
+          "name": "location",
+          "type": "text",
+          "label": "Location",
+          "placeholder": "Stanford, CA",
+          "required": false
+        },
+        {
+          "name": "startDate",
+          "type": "month-year",
+          "label": "Start Date",
+          "required": false
+        },
+        {
+          "name": "endDate",
+          "type": "month-year",
+          "label": "End Date (or Expected)",
+          "required": true
+        },
+        {
+          "name": "currentlyStudying",
+          "type": "checkbox",
+          "label": "Currently studying here",
+          "default": false
+        },
+        {
+          "name": "gpa",
+          "type": "text",
+          "label": "GPA",
+          "placeholder": "3.8/4.0",
+          "required": false
+        },
+        {
+          "name": "achievements",
+          "type": "richtext-bullets",
+          "label": "Achievements & Activities",
+          "placeholder": "• Dean's List\n• President of Computer Science Club",
+          "required": false
+        }
+      ],
+      "sortable": true
+    },
+
+    "skills": {
+      "isRepeatable": true,
+      "maxEntries": 30,
+      "displayModes": ["list", "categories", "bars", "tags"],
+      "fields": [
+        {
+          "name": "skillName",
+          "type": "text",
+          "label": "Skill",
+          "placeholder": "JavaScript",
+          "required": true,
+          "autocomplete": "skills-database"
+        },
+        {
+          "name": "proficiency",
+          "type": "select",
+          "label": "Proficiency Level",
+          "options": ["Beginner", "Intermediate", "Advanced", "Expert"],
+          "required": false,
+          "displayAs": "progress-bar"
+        },
+        {
+          "name": "category",
+          "type": "select-or-custom",
+          "label": "Category",
+          "options": ["Technical Skills", "Soft Skills", "Tools & Software", "Languages", "Other"],
+          "required": false
+        }
+      ],
+      "aiFeatures": [
+        "Suggest skills based on job title",
+        "Recommend skills from job description",
+        "Identify missing essential skills"
+      ],
+      "quickAdd": true,
+      "suggestedSkills": true
+    },
+
+    "additionalSections": {
+      "certifications": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "certificationName",
+            "type": "text",
+            "label": "Certification Name",
+            "placeholder": "AWS Certified Solutions Architect",
+            "required": true
+          },
+          {
+            "name": "issuingOrganization",
+            "type": "text",
+            "label": "Issuing Organization",
+            "placeholder": "Amazon Web Services",
+            "required": true
+          },
+          {
+            "name": "issueDate",
+            "type": "month-year",
+            "label": "Issue Date",
+            "required": false
+          },
+          {
+            "name": "expirationDate",
+            "type": "month-year",
+            "label": "Expiration Date",
+            "required": false
+          },
+          {
+            "name": "credentialId",
+            "type": "text",
+            "label": "Credential ID",
+            "required": false
+          },
+          {
+            "name": "credentialUrl",
+            "type": "url",
+            "label": "Credential URL",
+            "required": false
+          }
+        ]
+      },
+
+      "projects": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "projectName",
+            "type": "text",
+            "label": "Project Name",
+            "required": true
+          },
+          {
+            "name": "role",
+            "type": "text",
+            "label": "Your Role",
+            "placeholder": "Lead Developer",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "type": "month-year",
+            "label": "Start Date",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "month-year",
+            "label": "End Date",
+            "required": false
+          },
+          {
+            "name": "description",
+            "type": "richtext-bullets",
+            "label": "Description",
+            "aiSuggestions": true,
+            "required": true
+          },
+          {
+            "name": "technologies",
+            "type": "tags",
+            "label": "Technologies Used",
+            "required": false
+          },
+          {
+            "name": "projectUrl",
+            "type": "url",
+            "label": "Project URL",
+            "required": false
+          },
+          {
+            "name": "repositoryUrl",
+            "type": "url",
+            "label": "Repository URL",
+            "required": false
+          }
+        ]
+      },
+
+      "languages": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "language",
+            "type": "select-or-custom",
+            "label": "Language",
+            "options": "languages-list",
+            "required": true
+          },
+          {
+            "name": "proficiency",
+            "type": "select",
+            "label": "Proficiency",
+            "options": ["Native", "Fluent", "Advanced", "Intermediate", "Basic"],
+            "required": true
+          }
+        ]
+      },
+
+      "awards": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "awardName",
+            "type": "text",
+            "label": "Award Name",
+            "required": true
+          },
+          {
+            "name": "issuer",
+            "type": "text",
+            "label": "Issuing Organization",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "month-year",
+            "label": "Date Received",
+            "required": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description",
+            "required": false
+          }
+        ]
+      },
+
+      "publications": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "required": true
+          },
+          {
+            "name": "publisher",
+            "type": "text",
+            "label": "Publisher/Journal",
+            "required": false
+          },
+          {
+            "name": "date",
+            "type": "month-year",
+            "label": "Publication Date",
+            "required": false
+          },
+          {
+            "name": "url",
+            "type": "url",
+            "label": "URL/DOI",
+            "required": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description",
+            "required": false
+          }
+        ]
+      },
+
+      "volunteerWork": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "role",
+            "type": "text",
+            "label": "Role",
+            "required": true
+          },
+          {
+            "name": "organization",
+            "type": "text",
+            "label": "Organization",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "type": "month-year",
+            "label": "Start Date",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "type": "month-year",
+            "label": "End Date",
+            "required": false
+          },
+          {
+            "name": "description",
+            "type": "richtext-bullets",
+            "label": "Description",
+            "required": false
+          }
+        ]
+      },
+
+      "interests": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "interest",
+            "type": "text",
+            "label": "Interest/Hobby",
+            "required": true
+          }
+        ],
+        "displayMode": "tags"
+      },
+
+      "references": {
+        "isRepeatable": true,
+        "fields": [
+          {
+            "name": "name",
+            "type": "text",
+            "label": "Reference Name",
+            "required": true
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "required": false
+          },
+          {
+            "name": "company",
+            "type": "text",
+            "label": "Company",
+            "required": false
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "label": "Email",
+            "required": false
+          },
+          {
+            "name": "phone",
+            "type": "tel",
+            "label": "Phone",
+            "required": false
+          },
+          {
+            "name": "relationship",
+            "type": "text",
+            "label": "Relationship",
+            "placeholder": "Former Manager",
+            "required": false
+          }
+        ],
+        "note": "Consider adding 'References available upon request' instead"
+      },
+
+      "customSection": {
+        "isRepeatable": true,
+        "allowMultiple": true,
+        "fields": [
+          {
+            "name": "sectionTitle",
+            "type": "text",
+            "label": "Section Title",
+            "required": true
+          },
+          {
+            "name": "content",
+            "type": "richtext",
+            "label": "Content",
+            "required": true
+          }
+        ]
+      }
+    },
+
+    "coverLetterBuilder": {
+      "enabled": true,
+      "fields": [
+        {
+          "name": "recipientName",
+          "type": "text",
+          "label": "Recipient Name",
+          "placeholder": "Hiring Manager / John Smith",
+          "required": false
+        },
+        {
+          "name": "recipientTitle",
+          "type": "text",
+          "label": "Recipient Title",
+          "placeholder": "Head of Engineering",
+          "required": false
+        },
+        {
+          "name": "companyName",
+          "type": "text",
+          "label": "Company Name",
+          "required": true
+        },
+        {
+          "name": "companyAddress",
+          "type": "textarea",
+          "label": "Company Address",
+          "required": false
+        },
+        {
+          "name": "jobTitle",
+          "type": "text",
+          "label": "Position Applying For",
+          "required": true
+        },
+        {
+          "name": "salutation",
+          "type": "select",
+          "label": "Salutation",
+          "options": [
+            "Dear Hiring Manager,",
+            "Dear [Name],",
+            "To Whom It May Concern,",
+            "Hello [Name],",
+            "Custom..."
+          ],
+          "default": "Dear Hiring Manager,"
+        },
+        {
+          "name": "openingParagraph",
+          "type": "richtext",
+          "label": "Opening Paragraph",
+          "placeholder": "Express your interest in the position...",
+          "aiSuggestions": true
+        },
+        {
+          "name": "bodyParagraphs",
+          "type": "richtext",
+          "label": "Body",
+          "placeholder": "Highlight your qualifications and experiences...",
+          "aiSuggestions": true
+        },
+        {
+          "name": "closingParagraph",
+          "type": "richtext",
+          "label": "Closing Paragraph",
+          "placeholder": "Express enthusiasm and call to action...",
+          "aiSuggestions": true
+        },
+        {
+          "name": "closing",
+          "type": "select",
+          "label": "Closing",
+          "options": [
+            "Sincerely,",
+            "Best regards,",
+            "Thank you,",
+            "Respectfully,",
+            "Warm regards,"
+          ],
+          "default": "Sincerely,"
+        }
+      ],
+      "aiFeatures": [
+        "Generate entire cover letter",
+        "Tailor to job description",
+        "Improve existing content",
+        "Match resume content"
+      ],
+      "templates": [
+        "Traditional",
+        "Modern",
+        "Creative",
+        "Minimalist"
+      ]
+    }
+  },
+
+  "templatesAndCustomization": {
+    "templateCount": 12,
+    "templates": [
+      {
+        "id": "classic-professional",
+        "name": "Classic Professional",
+        "category": "Classic",
+        "description": "Traditional layout with clean lines",
+        "bestFor": ["Corporate", "Finance", "Legal", "Government"],
+        "free": true,
+        "atsScore": 95,
+        "layout": "single-column"
+      },
+      {
+        "id": "modern-minimalist",
+        "name": "Modern Minimalist",
+        "category": "Modern",
+        "description": "Clean, contemporary design with ample white space",
+        "bestFor": ["Tech", "Startups", "Consulting"],
+        "free": true,
+        "atsScore": 90,
+        "layout": "single-column"
+      },
+      {
+        "id": "modern-sidebar",
+        "name": "Modern Sidebar",
+        "category": "Modern",
+        "description": "Two-column layout with skills sidebar",
+        "bestFor": ["Tech", "Marketing", "Design"],
+        "free": true,
+        "atsScore": 85,
+        "layout": "two-column"
+      },
+      {
+        "id": "creative-bold",
+        "name": "Creative Bold",
+        "category": "Creative",
+        "description": "Eye-catching design with color accents",
+        "bestFor": ["Design", "Marketing", "Media"],
+        "free": false,
+        "atsScore": 75,
+        "layout": "two-column"
+      },
+      {
+        "id": "creative-visual",
+        "name": "Creative Visual",
+        "category": "Creative",
+        "description": "Infographic-style with skill bars and icons",
+        "bestFor": ["Design", "Creative", "Portfolio-based"],
+        "free": false,
+        "atsScore": 70,
+        "layout": "two-column"
+      },
+      {
+        "id": "executive-elegant",
+        "name": "Executive Elegant",
+        "category": "Executive",
+        "description": "Sophisticated design for senior professionals",
+        "bestFor": ["C-Level", "Director", "VP roles"],
+        "free": false,
+        "atsScore": 92,
+        "layout": "single-column"
+      },
+      {
+        "id": "academic-scholarly",
+        "name": "Academic Scholarly",
+        "category": "Specialized",
+        "description": "CV format with publications and research focus",
+        "bestFor": ["Academia", "Research", "Education"],
+        "free": true,
+        "atsScore": 88,
+        "layout": "single-column"
+      },
+      {
+        "id": "tech-developer",
+        "name": "Tech Developer",
+        "category": "Specialized",
+        "description": "Developer-focused with GitHub integration",
+        "bestFor": ["Software Engineering", "DevOps", "Tech"],
+        "free": true,
+        "atsScore": 90,
+        "layout": "two-column"
+      },
+      {
+        "id": "healthcare-professional",
+        "name": "Healthcare Professional",
+        "category": "Specialized",
+        "description": "Clean layout for medical professionals",
+        "bestFor": ["Healthcare", "Nursing", "Medical"],
+        "free": false,
+        "atsScore": 92,
+        "layout": "single-column"
+      },
+      {
+        "id": "sales-dynamic",
+        "name": "Sales Dynamic",
+        "category": "Specialized",
+        "description": "Results-focused with metrics highlights",
+        "bestFor": ["Sales", "Business Development"],
+        "free": false,
+        "atsScore": 88,
+        "layout": "single-column"
+      },
+      {
+        "id": "entry-level-fresh",
+        "name": "Entry Level Fresh",
+        "category": "Entry Level",
+        "description": "Highlights education and potential",
+        "bestFor": ["Recent Graduates", "Internships", "First Job"],
+        "free": true,
+        "atsScore": 90,
+        "layout": "single-column"
+      },
+      {
+        "id": "international-global",
+        "name": "International Global",
+        "category": "Specialized",
+        "description": "EU/International CV format",
+        "bestFor": ["International applications", "EU jobs"],
+        "free": true,
+        "atsScore": 85,
+        "layout": "single-column"
+      }
+    ],
+
+    "customizationOptions": {
+      "colors": {
+        "primaryColor": {
+          "type": "color-picker",
+          "presets": ["#1a73e8", "#34a853", "#ea4335", "#fbbc04", "#4285f4", "#0d47a1", "#1b5e20", "#b71c1c", "#263238"],
+          "custom": true
+        },
+        "secondaryColor": {
+          "type": "color-picker",
+          "presets": ["#5f6368", "#202124", "#3c4043", "#9aa0a6"],
+          "custom": true
+        },
+        "backgroundColor": {
+          "type": "color-picker",
+          "presets": ["#ffffff", "#f8f9fa", "#f1f3f4", "#fafafa"],
+          "custom": true
+        },
+        "accentColor": {
+          "type": "color-picker",
+          "presets": ["same as primary", "#ff9800", "#9c27b0", "#00bcd4"],
+          "custom": true
+        }
+      },
+
+      "fonts": {
+        "headingFont": {
+          "type": "select",
+          "options": [
+            "Roboto",
+            "Open Sans",
+            "Lato",
+            "Montserrat",
+            "Playfair Display",
+            "Merriweather",
+            "Poppins",
+            "Source Sans Pro",
+            "Raleway",
+            "PT Sans"
+          ],
+          "default": "Roboto"
+        },
+        "bodyFont": {
+          "type": "select",
+          "options": [
+            "Roboto",
+            "Open Sans",
+            "Lato",
+            "Source Sans Pro",
+            "Noto Sans",
+            "PT Sans",
+            "Merriweather",
+            "Georgia",
+            "Arial",
+            "Times New Roman"
+          ],
+          "default": "Open Sans"
+        },
+        "fontSize": {
+          "type": "slider",
+          "min": 10,
+          "max": 14,
+          "default": 11,
+          "unit": "pt"
+        },
+        "headingSize": {
+          "type": "slider",
+          "min": 14,
+          "max": 24,
+          "default": 18,
+          "unit": "pt"
+        }
+      },
+
+      "layout": {
+        "pageMargins": {
+          "type": "select",
+          "options": ["Narrow", "Normal", "Wide"],
+          "default": "Normal",
+          "values": {
+            "Narrow": "0.5in",
+            "Normal": "1in",
+            "Wide": "1.5in"
+          }
+        },
+        "lineSpacing": {
+          "type": "select",
+          "options": ["Compact", "Normal", "Relaxed"],
+          "default": "Normal"
+        },
+        "sectionSpacing": {
+          "type": "slider",
+          "min": 8,
+          "max": 24,
+          "default": 16,
+          "unit": "px"
+        },
+        "sectionOrder": {
+          "type": "drag-and-drop",
+          "reorderable": true
+        }
+      },
+
+      "styling": {
+        "headingStyle": {
+          "type": "select",
+          "options": ["Uppercase", "Capitalize", "Normal"],
+          "default": "Uppercase"
+        },
+        "dividerStyle": {
+          "type": "select",
+          "options": ["Line", "Dots", "None", "Double Line"],
+          "default": "Line"
+        },
+        "bulletStyle": {
+          "type": "select",
+          "options": ["Circle", "Square", "Dash", "Arrow", "Check"],
+          "default": "Circle"
+        },
+        "dateFormat": {
+          "type": "select",
+          "options": [
+            "MM/YYYY",
+            "Month YYYY",
+            "Mon YYYY",
+            "YYYY-MM",
+            "MM.YYYY"
+          ],
+          "default": "Month YYYY"
+        },
+        "showIcons": {
+          "type": "toggle",
+          "default": true,
+          "description": "Show icons next to contact info and sections"
+        },
+        "showPhoto": {
+          "type": "toggle",
+          "default": false,
+          "description": "Include profile photo"
+        },
+        "photoShape": {
+          "type": "select",
+          "options": ["Circle", "Square", "Rounded Square"],
+          "default": "Circle",
+          "conditionalOn": "showPhoto"
+        },
+        "photoSize": {
+          "type": "slider",
+          "min": 60,
+          "max": 120,
+          "default": 80,
+          "unit": "px",
+          "conditionalOn": "showPhoto"
+        }
+      },
+
+      "skillsDisplay": {
+        "style": {
+          "type": "select",
+          "options": ["Tags", "Progress Bars", "Dots", "Stars", "Simple List", "Two Columns"],
+          "default": "Tags"
+        },
+        "showProficiency": {
+          "type": "toggle",
+          "default": true
+        }
+      }
+    }
+  },
+
+  "aiAssistance": {
+    "features": [
+      {
+        "name": "Bullet Point Generator",
+        "description": "Generate achievement-focused bullet points based on job title",
+        "trigger": "Click 'Generate Suggestions' or type trigger",
+        "inputRequired": ["jobTitle", "optional: company", "optional: industry"],
+        "output": "3-5 suggested bullet points with metrics"
+      },
+      {
+        "name": "Summary Writer",
+        "description": "Create professional summary based on experience",
+        "trigger": "Click 'Generate Summary' button",
+        "inputRequired": ["jobTitle", "yearsExperience", "keySkills"],
+        "output": "2-4 sentence professional summary",
+        "styles": ["Professional", "Dynamic", "Achievement-focused", "Skills-focused"]
+      },
+      {
+        "name": "Content Refiner",
+        "description": "Improve existing text for clarity and impact",
+        "trigger": "Select text and click 'Improve with AI'",
+        "inputRequired": ["selectedText"],
+        "output": "Refined version of the text",
+        "options": ["More Concise", "More Detailed", "More Professional", "Add Metrics"]
+      },
+      {
+        "name": "Job-Specific Tailoring",
+        "description": "Customize resume for specific job posting",
+        "trigger": "Paste job description",
+        "inputRequired": ["jobDescription", "currentResume"],
+        "output": "Suggestions for tailoring each section",
+        "features": [
+          "Keyword matching analysis",
+          "Missing skills identification",
+          "Section emphasis recommendations",
+          "ATS keyword insertion"
+        ]
+      },
+      {
+        "name": "Skills Suggester",
+        "description": "Recommend relevant skills based on role",
+        "trigger": "Click 'Suggest Skills' in skills section",
+        "inputRequired": ["jobTitle", "industry"],
+        "output": "Categorized list of relevant skills"
+      },
+      {
+        "name": "Action Verb Optimizer",
+        "description": "Replace weak verbs with powerful action verbs",
+        "trigger": "Automatic or on-demand",
+        "inputRequired": ["bulletPoints"],
+        "output": "Suggestions for stronger verb alternatives"
+      },
+      {
+        "name": "Quantification Helper",
+        "description": "Add metrics and numbers to achievements",
+        "trigger": "Click 'Add Metrics' on bullet point",
+        "inputRequired": ["bulletPoint"],
+        "output": "Prompts for specific metrics to add"
+      },
+      {
+        "name": "Cover Letter Generator",
+        "description": "Create full cover letter based on resume and job",
+        "trigger": "Click 'Generate Cover Letter'",
+        "inputRequired": ["resumeData", "jobDescription", "companyName"],
+        "output": "Complete 3-4 paragraph cover letter"
+      }
+    ],
+
+    "implementationNotes": {
+      "apiProvider": "OpenAI GPT-4 / Claude API",
+      "rateLimiting": "10 AI generations per hour (free tier)",
+      "caching": "Cache common suggestions for job titles",
+      "fallback": "Pre-written templates if API unavailable"
+    }
+  },
+
+  "validationAndATS": {
+    "atsCompatibilityGuidelines": [
+      {
+        "rule": "Use standard section headings",
+        "examples": ["Work Experience (not 'Where I've Been')", "Education (not 'My Learning Journey')"],
+        "severity": "high"
+      },
+      {
+        "rule": "Avoid tables and complex layouts",
+        "description": "ATS systems may not parse tables correctly",
+        "severity": "high"
+      },
+      {
+        "rule": "Use standard fonts",
+        "allowedFonts": ["Arial", "Calibri", "Georgia", "Helvetica", "Times New Roman", "Garamond"],
+        "severity": "medium"
+      },
+      {
+        "rule": "Include keywords from job description",
+        "description": "Match skills and terms from the job posting",
+        "severity": "high"
+      },
+      {
+        "rule": "Use consistent date formatting",
+        "formats": ["MM/YYYY", "Month YYYY"],
+        "severity": "medium"
+      },
+      {
+        "rule": "Avoid headers and footers",
+        "description": "Text in headers/footers may be ignored",
+        "severity": "medium"
+      },
+      {
+        "rule": "Don't embed text in images",
+        "description": "ATS cannot read text in images",
+        "severity": "high"
+      },
+      {
+        "rule": "Use .docx or .pdf format",
+        "preferredFormat": ".docx for maximum compatibility",
+        "severity": "medium"
+      },
+      {
+        "rule": "Include contact info in main body",
+        "description": "Not just in header/footer",
+        "severity": "high"
+      },
+      {
+        "rule": "Use bullet points, not paragraphs",
+        "description": "Easier for ATS and humans to scan",
+        "severity": "medium"
+      }
+    ],
+
+    "validationRules": {
+      "required": [
+        {
+          "field": "firstName",
+          "message": "First name is required"
+        },
+        {
+          "field": "lastName",
+          "message": "Last name is required"
+        },
+        {
+          "field": "email",
+          "message": "Email address is required"
+        },
+        {
+          "field": "phone",
+          "message": "Phone number is required"
+        }
+      ],
+      "recommended": [
+        {
+          "field": "professionalSummary",
+          "message": "Adding a professional summary increases interview chances by 40%"
+        },
+        {
+          "field": "workExperience",
+          "minEntries": 1,
+          "message": "Add at least one work experience entry"
+        },
+        {
+          "field": "workExperience.responsibilities",
+          "minBullets": 3,
+          "message": "Include at least 3 bullet points per job"
+        },
+        {
+          "field": "skills",
+          "minEntries": 5,
+          "message": "List at least 5 relevant skills"
+        },
+        {
+          "field": "education",
+          "minEntries": 1,
+          "message": "Include your highest level of education"
+        }
+      ],
+      "warnings": [
+        {
+          "condition": "resumeLength > 2 pages",
+          "message": "Most recruiters prefer 1-2 page resumes"
+        },
+        {
+          "condition": "noMetricsInBullets",
+          "message": "Add quantifiable achievements (numbers, percentages)"
+        },
+        {
+          "condition": "oldExperience > 15 years",
+          "message": "Consider removing experience older than 10-15 years"
+        },
+        {
+          "condition": "emailNotProfessional",
+          "message": "Use a professional email address"
+        }
+      ],
+      "formats": {
+        "email": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        "phone": "^[+]?[(]?[0-9]{1,4}[)]?[-\\s./0-9]*$",
+        "url": "^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?$",
+        "linkedIn": "^(https?://)?(www\\.)?linkedin\\.com/in/[a-zA-Z0-9-]+/?$"
+      }
+    },
+
+    "atsScoreCalculation": {
+      "factors": [
+        {
+          "factor": "Contact Information Complete",
+          "weight": 15,
+          "criteria": "All required contact fields filled"
+        },
+        {
+          "factor": "Standard Section Headers",
+          "weight": 15,
+          "criteria": "Using ATS-friendly section names"
+        },
+        {
+          "factor": "Keyword Optimization",
+          "weight": 25,
+          "criteria": "Relevant industry keywords present"
+        },
+        {
+          "factor": "Quantified Achievements",
+          "weight": 15,
+          "criteria": "Numbers and metrics in bullet points"
+        },
+        {
+          "factor": "Consistent Formatting",
+          "weight": 10,
+          "criteria": "Consistent dates, fonts, structure"
+        },
+        {
+          "factor": "Appropriate Length",
+          "weight": 10,
+          "criteria": "1-2 pages for most roles"
+        },
+        {
+          "factor": "Skills Section",
+          "weight": 10,
+          "criteria": "Clear, organized skills list"
+        }
+      ],
+      "scoreRanges": {
+        "excellent": "90-100",
+        "good": "75-89",
+        "needsWork": "50-74",
+        "poor": "0-49"
+      }
+    }
+  },
+
+  "outputExportOptions": {
+    "downloadFormats": [
+      {
+        "format": "PDF",
+        "library": "jsPDF + html2canvas",
+        "quality": "300 DPI",
+        "features": ["Multi-page support", "Font embedding", "Vector graphics"],
+        "free": true
+      },
+      {
+        "format": "DOCX",
+        "library": "docx.js",
+        "features": ["Editable in Word", "ATS-optimized", "Maintains formatting"],
+        "free": true
+      },
+      {
+        "format": "TXT",
+        "library": "Native JavaScript",
+        "features": ["Plain text", "Maximum ATS compatibility"],
+        "free": true
+      },
+      {
+        "format": "PNG",
+        "library": "html2canvas",
+        "features": ["High resolution image", "Good for sharing"],
+        "premium": true
+      },
+      {
+        "format": "JSON",
+        "library": "Native JavaScript",
+        "features": ["Data backup", "Import/export between sessions"],
+        "free": true
+      }
+    ],
+
+    "shareableLink": {
+      "enabled": true,
+      "features": [
+        "Unique URL for each resume",
+        "Password protection option",
+        "Expiration date setting",
+        "View tracking analytics",
+        "One-click copy link"
+      ],
+      "urlFormat": "resume-builder.com/r/{uniqueId}"
+    },
+
+    "emailResume": {
+      "enabled": true,
+      "features": [
+        "Send PDF directly to email",
+        "Include cover letter option",
+        "Customize email subject/body"
+      ]
+    }
+  },
+
+  "backgroundFeatures": {
+    "userAccounts": {
+      "guestMode": {
+        "enabled": true,
+        "features": [
+          "Create resume without signup",
+          "Download once for free",
+          "Prompt to create account to save"
+        ],
+        "limitations": [
+          "No save/load drafts",
+          "Watermark on downloads (optional)",
+          "Limited template access"
+        ]
+      },
+      "registeredUsers": {
+        "authMethods": ["Email/Password", "Google OAuth", "LinkedIn OAuth", "Apple Sign-In"],
+        "features": [
+          "Save unlimited resumes",
+          "Access from any device",
+          "Version history",
+          "Share links",
+          "Analytics dashboard"
+        ],
+        "profileData": [
+          "Name",
+          "Email",
+          "Profile picture",
+          "Subscription status",
+          "Created resumes list",
+          "Download history"
+        ]
+      }
+    },
+
+    "saveDrafts": {
+      "autoSave": {
+        "enabled": true,
+        "interval": 30,
+        "unit": "seconds"
+      },
+      "manualSave": true,
+      "storage": {
+        "registered": "Database (PostgreSQL/MongoDB)",
+        "guest": "localStorage (browser)"
+      },
+      "versionHistory": {
+        "enabled": true,
+        "maxVersions": 10,
+        "restoreCapability": true
+      }
+    },
+
+    "multipleResumes": {
+      "enabled": true,
+      "freeLimit": 3,
+      "premiumLimit": "unlimited",
+      "features": [
+        "Duplicate existing resume",
+        "Rename resumes",
+        "Organize with folders/tags",
+        "Set default resume"
+      ]
+    },
+
+    "analytics": {
+      "forUsers": [
+        "Resume views (shared links)",
+        "Download count",
+        "Most edited sections",
+        "ATS score trends"
+      ],
+      "forPlatform": [
+        "User signups",
+        "Resumes created",
+        "Templates popularity",
+        "Conversion rates",
+        "Feature usage"
+      ]
+    }
+  },
+
+  "pricingModel": {
+    "tiers": [
+      {
+        "name": "Free",
+        "price": 0,
+        "features": [
+          "5 free templates",
+          "PDF download",
+          "Basic customization",
+          "ATS score checker",
+          "3 saved resumes",
+          "5 AI generations/month"
+        ],
+        "limitations": [
+          "Watermark on downloads",
+          "Limited template customization",
+          "No cover letter builder",
+          "No LinkedIn import"
+        ]
+      },
+      {
+        "name": "Pro",
+        "price": 9.99,
+        "billingCycle": "monthly",
+        "annualPrice": 79.99,
+        "features": [
+          "All 12+ templates",
+          "No watermark",
+          "PDF, DOCX, TXT export",
+          "Full customization",
+          "Cover letter builder",
+          "LinkedIn import",
+          "Unlimited resumes",
+          "50 AI generations/month",
+          "Priority support",
+          "Shareable links",
+          "Version history"
+        ]
+      },
+      {
+        "name": "Premium",
+        "price": 19.99,
+        "billingCycle": "monthly",
+        "annualPrice": 149.99,
+        "features": [
+          "Everything in Pro",
+          "Unlimited AI generations",
+          "Job-specific tailoring AI",
+          "Resume review by experts",
+          "Priority support",
+          "Custom branding (white label)",
+          "Team/enterprise features",
+          "API access",
+          "Advanced analytics"
+        ]
+      }
+    ],
+
+    "oneTimePurchases": [
+      {
+        "name": "Single Resume Download",
+        "price": 2.99,
+        "description": "Download one resume without subscription"
+      },
+      {
+        "name": "Premium Template Pack",
+        "price": 14.99,
+        "description": "Unlock all premium templates forever"
+      },
+      {
+        "name": "Expert Resume Review",
+        "price": 49.99,
+        "description": "Personalized feedback from career expert"
+      }
+    ],
+
+    "promotions": {
+      "firstDownloadFree": true,
+      "referralDiscount": "20% off for referrer and referee",
+      "studentDiscount": "50% off with .edu email"
+    }
+  },
+
+  "technicalImplementation": {
+    "existingTechStack": {
+      "frontend": "React 19 + Vite",
+      "styling": "Tailwind CSS",
+      "pdfExport": "jsPDF + html2canvas",
+      "richTextEditor": "TipTap"
+    },
+
+    "requiredAdditions": {
+      "backend": {
+        "option1": {
+          "name": "Node.js + Express",
+          "database": "PostgreSQL with Prisma ORM",
+          "auth": "Passport.js + JWT"
+        },
+        "option2": {
+          "name": "Next.js API Routes",
+          "database": "PostgreSQL with Prisma",
+          "auth": "NextAuth.js"
+        },
+        "option3": {
+          "name": "Supabase (BaaS)",
+          "database": "PostgreSQL (hosted)",
+          "auth": "Supabase Auth",
+          "storage": "Supabase Storage"
+        }
+      },
+
+      "additionalPackages": {
+        "stateManagement": "Zustand or Redux Toolkit",
+        "formHandling": "React Hook Form + Zod",
+        "docxExport": "docx (npm package)",
+        "imageProcessing": "react-image-crop",
+        "dragAndDrop": "dnd-kit or react-beautiful-dnd",
+        "dateHandling": "date-fns",
+        "aiIntegration": "OpenAI SDK or Anthropic SDK",
+        "analytics": "Mixpanel or PostHog",
+        "payments": "Stripe"
+      },
+
+      "infrastructure": {
+        "hosting": "Vercel or Railway",
+        "cdn": "Cloudflare",
+        "storage": "AWS S3 or Cloudflare R2",
+        "monitoring": "Sentry",
+        "email": "Resend or SendGrid"
+      }
+    },
+
+    "proposedFolderStructure": {
+      "src": {
+        "app": "(Next.js pages if migrating)",
+        "components": {
+          "common": ["Button", "Input", "Modal", "Dropdown"],
+          "forms": ["PersonalDetailsForm", "ExperienceForm", "EducationForm"],
+          "templates": ["TemplateOne", "TemplateTwo", "..."],
+          "editor": ["SectionEditor", "RichTextEditor", "AIAssistant"],
+          "preview": ["ResumePreview", "PageBreaker"],
+          "layout": ["Header", "Sidebar", "Footer"]
+        },
+        "hooks": ["useResumeData", "useAutoSave", "useAIGeneration"],
+        "contexts": ["AuthContext", "ResumeContext", "ThemeContext"],
+        "services": {
+          "api": ["resume.js", "auth.js", "ai.js"],
+          "export": ["pdfExport.js", "docxExport.js"]
+        },
+        "utils": ["validation.js", "formatters.js", "atsScore.js"],
+        "types": ["resume.ts", "user.ts", "template.ts"],
+        "data": ["initialData.js", "skillsDatabase.js", "templates.js"],
+        "styles": ["globals.css", "themes.css"]
+      }
+    }
+  },
+
+  "roadmap": {
+    "phase1_MVP": {
+      "duration": "Phase 1",
+      "features": [
+        "Complete all form sections with validation",
+        "5 polished templates",
+        "Real-time preview",
+        "PDF export",
+        "LocalStorage persistence",
+        "Basic customization (colors, fonts)"
+      ]
+    },
+    "phase2_UserAccounts": {
+      "duration": "Phase 2",
+      "features": [
+        "User authentication",
+        "Cloud save/load",
+        "Multiple resumes per user",
+        "Account dashboard"
+      ]
+    },
+    "phase3_AIAndPremium": {
+      "duration": "Phase 3",
+      "features": [
+        "AI content generation",
+        "ATS score calculator",
+        "More templates",
+        "Payment integration",
+        "Premium features"
+      ]
+    },
+    "phase4_Advanced": {
+      "duration": "Phase 4",
+      "features": [
+        "Cover letter builder",
+        "LinkedIn import",
+        "DOCX export",
+        "Shareable links",
+        "Analytics dashboard",
+        "Mobile app"
+      ]
+    }
+  }
+}
