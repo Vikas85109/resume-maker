@@ -1,7 +1,7 @@
 import React from 'react';
 import { TemplateProps } from '@/types/resume';
 
-const TemplateExecutive: React.FC<TemplateProps> = ({ data, scale = 1 }) => {
+const TemplateExecutive: React.FC<TemplateProps> = ({ data }) => {
   const { personalInfo, summary, experience, education, skills, projects, certifications, languages } = data;
 
   const formatDate = (dateStr: string): string => {
@@ -18,8 +18,6 @@ const TemplateExecutive: React.FC<TemplateProps> = ({ data, scale = 1 }) => {
         width: '794px',
         minHeight: '1123px',
         fontFamily: 'Palatino, Georgia, serif',
-        transform: `scale(${scale})`,
-        transformOrigin: 'top left',
       }}
     >
       {/* Elegant Top Border */}

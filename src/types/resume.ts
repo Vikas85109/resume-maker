@@ -99,7 +99,6 @@ export interface IAppContextType {
 // Component Props
 export interface TemplateProps {
   data: IResumeData;
-  scale?: number;
 }
 
 export interface TemplateCardProps {
