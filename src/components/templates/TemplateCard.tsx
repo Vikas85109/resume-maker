@@ -12,16 +12,16 @@ interface TemplateCardProps {
 
 const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSelect }) => {
   const TemplateComponent = templateComponents[template.id];
-  const previewRef = useRef<HTMLDivElement>(null);
+  const hiddenRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const scale = 0.28;
 
   const handleDownload = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!previewRef.current || isDownloading) return;
+    if (!hiddenRef.current || isDownloading) return;
     setIsDownloading(true);
     try {
-      await exportToPdf(previewRef.current, `${template.name}_Resume_Sample.pdf`);
+      await exportToPdf(hiddenRef.current, `${template.name}_Resume_Sample.pdf`);
     } catch (error) {
       console.error('Download failed:', error);
     } finally {
@@ -36,14 +36,27 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSel
         ${isSelected ? 'ring-2 ring-purple-600 ring-offset-2' : ''}
       `}
     >
-      {/* Template Preview */}
+      {/* Hidden full-size template for PDF export */}
+      <div
+        ref={hiddenRef}
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          top: 0,
+          width: '794px',
+          height: '1123px',
+        }}
+      >
+        <TemplateComponent data={sampleResumeData} />
+      </div>
+
+      {/* Visible Template Preview */}
       <div
         className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100 cursor-pointer"
         style={{ height: `${1123 * scale}px` }}
         onClick={onSelect}
       >
         <div
-          ref={previewRef}
           className="absolute top-2 left-1/2 origin-top shadow-lg"
           style={{
             transform: `translateX(-50%) scale(${scale})`,
