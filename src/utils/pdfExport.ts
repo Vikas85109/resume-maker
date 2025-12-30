@@ -17,7 +17,7 @@ export async function exportToPdf(element: HTMLElement, filename: string): Promi
     allowTaint: true,
     backgroundColor: '#ffffff',
     logging: false,
-    onclone: (clonedDoc, clonedElement) => {
+    onclone: (_clonedDoc, clonedElement) => {
       // Ensure the cloned element has proper styles
       clonedElement.style.transform = 'none';
       clonedElement.style.width = '794px';
