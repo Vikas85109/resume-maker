@@ -1,12 +1,15 @@
 import React, { useState, useMemo } from 'react';
+import { FiLogOut } from 'react-icons/fi';
 import { TemplateCard } from '@/components/templates';
 import { useApp } from '@/context/AppContext';
+import { useAuth } from '@/context/AuthContext';
 import { templates } from '@/data/defaultResume';
 
 type FilterType = 'all' | 'ats' | 'creative' | 'professional';
 
 const TemplateSelection: React.FC = () => {
   const { selectedTemplate, goToEditor } = useApp();
+  const { user, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
@@ -75,6 +78,27 @@ const TemplateSelection: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
+
+              {/* User & Logout */}
+              {user && (
+                <div className="flex items-center gap-3">
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white/50 rounded-full">
+                    <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-semibold text-white">
+                        {user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-[var(--slate-700)]">{user.name}</span>
+                  </div>
+                  <button
+                    onClick={logout}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-red-50 text-[var(--slate-600)] hover:text-red-600 rounded-lg transition-all duration-200 shadow-sm hover:shadow"
+                  >
+                    <FiLogOut className="w-4 h-4" />
+                    <span className="font-medium text-sm">Logout</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

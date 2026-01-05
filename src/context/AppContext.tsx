@@ -4,7 +4,7 @@ import { AppStep, TemplateId, IAppContextType } from '@/types/resume';
 const AppContext = createContext<IAppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentStep, setCurrentStep] = useState<AppStep>('templates');
+  const [currentStep, setCurrentStep] = useState<AppStep>('login');
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>('modern');
 
   const goToEditor = useCallback((template: TemplateId) => {
@@ -16,6 +16,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCurrentStep('templates');
   }, []);
 
+  const goToLogin = useCallback(() => {
+    setCurrentStep('login');
+  }, []);
+
+  const goToRegister = useCallback(() => {
+    setCurrentStep('register');
+  }, []);
+
   const value: IAppContextType = {
     currentStep,
     selectedTemplate,
@@ -23,6 +31,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSelectedTemplate,
     goToEditor,
     goToTemplates,
+    goToLogin,
+    goToRegister,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

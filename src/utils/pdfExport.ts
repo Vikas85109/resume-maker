@@ -1,49 +1,44 @@
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import domtoimage from 'dom-to-image-more';
 
 export async function exportToPdf(element: HTMLElement, filename: string): Promise<void> {
-  // Find A4 page within the element
+  // Find A4 page within the element or use element itself
   const pageElement = element.querySelector('.a4-page') as HTMLElement || element;
 
-  // A4 dimensions in points (595.28 x 841.89)
-  const pdf = new jsPDF('p', 'pt', 'a4');
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-  const pdfHeight = pdf.internal.pageSize.getHeight();
+  // Get the dimensions
+  const width = pageElement.offsetWidth;
+  const height = pageElement.offsetHeight;
 
-  // Capture directly from the visible element
-  const canvas = await html2canvas(pageElement, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff',
-    logging: false,
-    onclone: (_clonedDoc, clonedElement) => {
-      // Ensure the cloned element has proper styles
-      clonedElement.style.transform = 'none';
-      clonedElement.style.width = '794px';
-      clonedElement.style.minHeight = '1123px';
-    }
+  // Convert element to PNG image using dom-to-image-more
+  const dataUrl = await domtoimage.toPng(pageElement, {
+    quality: 1,
+    width: width,
+    height: height,
+    style: {
+      transform: 'none',
+    },
+    bgcolor: '#ffffff',
   });
 
-  const imgData = canvas.toDataURL('image/png', 1.0);
-
-  // Calculate dimensions to fit A4
-  const imgWidth = pdfWidth;
-  const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+  // Create PDF with A4 dimensions
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'px',
+    format: [width, height],
+  });
 
   // Add image to PDF
-  pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, pdfHeight), undefined, 'FAST');
+  pdf.addImage(dataUrl, 'PNG', 0, 0, width, height);
 
+  // Save the PDF
   pdf.save(filename);
 }
 
 export async function exportToImage(element: HTMLElement): Promise<string> {
-  const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff',
-  });
+  const pageElement = element.querySelector('.a4-page') as HTMLElement || element;
 
-  return canvas.toDataURL('image/png');
+  return await domtoimage.toPng(pageElement, {
+    quality: 1,
+    bgcolor: '#ffffff',
+  });
 }
