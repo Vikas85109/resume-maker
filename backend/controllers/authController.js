@@ -112,7 +112,7 @@ const login = async (req, res) => {
 
     // Find user by email
     const [users] = await getPool().query(
-      'SELECT id, name, email, password FROM users WHERE email = ?',
+      'SELECT id, name, email, password, role, status FROM users WHERE email = ?',
       [email.toLowerCase()]
     );
 
@@ -124,6 +124,14 @@ const login = async (req, res) => {
     }
 
     const user = users[0];
+
+    // Check if user is suspended
+    if (user.status === 'suspended') {
+      return res.status(401).json({
+        success: false,
+        message: 'Your account has been suspended. Please contact support.'
+      });
+    }
 
     // Verify password
     const isMatch = await bcrypt.compare(password, user.password);
@@ -138,6 +146,9 @@ const login = async (req, res) => {
     // Generate token
     const token = generateToken(user.id);
 
+    // Update last login
+    await getPool().query('UPDATE users SET last_login = NOW() WHERE id = ?', [user.id]);
+
     // Return success response
     res.status(200).json({
       success: true,
@@ -145,7 +156,8 @@ const login = async (req, res) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role || 'user'
       },
       token
     });
@@ -166,7 +178,7 @@ const getUser = async (req, res) => {
 
     // Find user
     const [users] = await getPool().query(
-      'SELECT id, name, email, created_at FROM users WHERE id = ?',
+      'SELECT id, name, email, role, status, created_at FROM users WHERE id = ?',
       [userId]
     );
 
@@ -184,7 +196,9 @@ const getUser = async (req, res) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role || 'user',
+        status: user.status
       }
     });
 

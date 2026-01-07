@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+ import React, { useState, useMemo } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { TemplateCard } from '@/components/templates';
 import { useApp } from '@/context/AppContext';
