@@ -60,7 +60,7 @@ export interface ITemplate {
 }
 
 // App State
-export type AppStep = 'login' | 'register' | 'templates' | 'editor';
+export type AppStep = 'templates' | 'editor';
 
 export interface IAppState {
   currentStep: AppStep;
@@ -94,8 +94,6 @@ export interface IAppContextType {
   setSelectedTemplate: (template: TemplateId) => void;
   goToEditor: (template: TemplateId) => void;
   goToTemplates: () => void;
-  goToLogin: () => void;
-  goToRegister: () => void;
 }
 
 // Component Props

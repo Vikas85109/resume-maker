@@ -1,9 +1,0 @@
-export { AdminLogin } from './AdminLogin';
-export { AdminDashboard } from './AdminDashboard';
-export { AdminCustomers } from './AdminCustomers';
-export { AdminTransactions } from './AdminTransactions';
-export { AdminTickets } from './AdminTickets';
-export { AdminTemplates } from './AdminTemplates';
-export { AdminBlogs } from './AdminBlogs';
-export { AdminEmail } from './AdminEmail';
-export { AdminSettings } from './AdminSettings';

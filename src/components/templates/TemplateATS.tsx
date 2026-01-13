@@ -7,72 +7,175 @@ const TemplateATS: React.FC<TemplateProps> = ({ data }) => {
   const formatDate = (dateStr: string): string => {
     if (!dateStr) return '';
     const [year, month] = dateStr.split('-');
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return `${months[parseInt(month) - 1]} ${year}`;
   };
 
   return (
     <div
-      className="a4-page bg-white"
+      className="a4-page"
       style={{
         width: '794px',
-        minHeight: '1123px',
+        height: '1123px',
+        backgroundColor: '#ffffff',
         fontFamily: 'Arial, Helvetica, sans-serif',
-        fontSize: '11pt',
-        lineHeight: '1.4',
-        color: '#000000',
+        fontSize: '10pt',
+        lineHeight: '1.5',
+        color: '#1a1a1a',
+        padding: '0',
+        margin: '0',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
       }}
     >
-      <div className="p-12">
-        {/* Header - Simple and Clean */}
-        <div className="text-center mb-6 pb-4 border-b-2 border-black">
-          <h1 className="text-2xl font-bold uppercase tracking-wide mb-2">
+      <div style={{ padding: '40px 50px' }}>
+        {/* Header Section */}
+        <div style={{
+          textAlign: 'center',
+          marginBottom: '20px',
+          paddingBottom: '16px',
+          borderBottom: '2px solid #1a1a1a'
+        }}>
+          <h1 style={{
+            fontSize: '24pt',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            margin: '0 0 8px 0',
+            color: '#1a1a1a'
+          }}>
             {personalInfo.fullName || 'YOUR NAME'}
           </h1>
-          <p className="text-base mb-2">{personalInfo.jobTitle || 'Professional Title'}</p>
-          <div className="text-sm">
-            {[
-              personalInfo.email,
-              personalInfo.phone,
-              personalInfo.location,
-              personalInfo.linkedin,
-              personalInfo.portfolio
-            ].filter(Boolean).join(' | ')}
+          <p style={{
+            fontSize: '12pt',
+            color: '#444444',
+            margin: '0 0 10px 0',
+            fontWeight: '500'
+          }}>
+            {personalInfo.jobTitle || 'Professional Title'}
+          </p>
+          <div style={{
+            fontSize: '9pt',
+            color: '#555555',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '8px'
+          }}>
+            {personalInfo.email && (
+              <span>{personalInfo.email}</span>
+            )}
+            {personalInfo.email && personalInfo.phone && <span>|</span>}
+            {personalInfo.phone && (
+              <span>{personalInfo.phone}</span>
+            )}
+            {personalInfo.phone && personalInfo.location && <span>|</span>}
+            {personalInfo.location && (
+              <span>{personalInfo.location}</span>
+            )}
+            {personalInfo.location && personalInfo.linkedin && <span>|</span>}
+            {personalInfo.linkedin && (
+              <span>{personalInfo.linkedin}</span>
+            )}
+            {personalInfo.linkedin && personalInfo.portfolio && <span>|</span>}
+            {personalInfo.portfolio && (
+              <span>{personalInfo.portfolio}</span>
+            )}
           </div>
         </div>
 
         {/* Professional Summary */}
         {summary && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Professional Summary
             </h2>
-            <p className="text-sm">{summary}</p>
+            <p style={{
+              fontSize: '10pt',
+              color: '#333333',
+              lineHeight: '1.6',
+              margin: '0',
+              textAlign: 'justify'
+            }}>
+              {summary}
+            </p>
           </div>
         )}
 
         {/* Work Experience */}
         {experience.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Professional Experience
             </h2>
-            <div className="space-y-4">
-              {experience.map((exp) => (
-                <div key={exp.id}>
-                  <div className="flex justify-between items-start mb-1">
+            <div>
+              {experience.map((exp, index) => (
+                <div key={exp.id} style={{ marginBottom: index < experience.length - 1 ? '14px' : '0' }}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: '4px'
+                  }}>
                     <div>
-                      <h3 className="font-bold">{exp.role}</h3>
-                      <p className="text-sm">{exp.company}</p>
+                      <h3 style={{
+                        fontSize: '11pt',
+                        fontWeight: 'bold',
+                        margin: '0',
+                        color: '#1a1a1a'
+                      }}>
+                        {exp.role}
+                      </h3>
+                      <p style={{
+                        fontSize: '10pt',
+                        color: '#444444',
+                        margin: '2px 0 0 0',
+                        fontStyle: 'italic'
+                      }}>
+                        {exp.company}
+                      </p>
                     </div>
-                    <p className="text-sm text-right">
+                    <p style={{
+                      fontSize: '9pt',
+                      color: '#555555',
+                      margin: '0',
+                      textAlign: 'right',
+                      whiteSpace: 'nowrap'
+                    }}>
                       {formatDate(exp.startDate)} - {exp.isCurrentRole ? 'Present' : formatDate(exp.endDate)}
                     </p>
                   </div>
                   {exp.responsibilities.length > 0 && (
-                    <ul className="mt-2 ml-4 space-y-1">
+                    <ul style={{
+                      margin: '8px 0 0 0',
+                      paddingLeft: '18px',
+                      listStyleType: 'disc'
+                    }}>
                       {exp.responsibilities.map((resp, idx) => (
-                        <li key={idx} className="text-sm list-disc">
+                        <li key={idx} style={{
+                          fontSize: '9.5pt',
+                          color: '#333333',
+                          marginBottom: '3px',
+                          lineHeight: '1.5'
+                        }}>
                           {resp}
                         </li>
                       ))}
@@ -86,18 +189,60 @@ const TemplateATS: React.FC<TemplateProps> = ({ data }) => {
 
         {/* Education */}
         {education.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Education
             </h2>
-            <div className="space-y-3">
-              {education.map((edu) => (
-                <div key={edu.id} className="flex justify-between">
+            <div>
+              {education.map((edu, index) => (
+                <div key={edu.id} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: index < education.length - 1 ? '10px' : '0'
+                }}>
                   <div>
-                    <h3 className="font-bold">{edu.degree}</h3>
-                    <p className="text-sm">{edu.institution}</p>
+                    <h3 style={{
+                      fontSize: '10.5pt',
+                      fontWeight: 'bold',
+                      margin: '0',
+                      color: '#1a1a1a'
+                    }}>
+                      {edu.degree}
+                    </h3>
+                    <p style={{
+                      fontSize: '10pt',
+                      color: '#444444',
+                      margin: '2px 0 0 0'
+                    }}>
+                      {edu.institution}
+                    </p>
+                    {edu.gpa && (
+                      <p style={{
+                        fontSize: '9pt',
+                        color: '#555555',
+                        margin: '2px 0 0 0'
+                      }}>
+                        GPA: {edu.gpa}
+                      </p>
+                    )}
                   </div>
-                  <p className="text-sm">{edu.year}</p>
+                  <p style={{
+                    fontSize: '9pt',
+                    color: '#555555',
+                    margin: '0'
+                  }}>
+                    {edu.year}
+                  </p>
                 </div>
               ))}
             </div>
@@ -106,28 +251,78 @@ const TemplateATS: React.FC<TemplateProps> = ({ data }) => {
 
         {/* Skills */}
         {skills.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
-              Skills
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
+              Technical Skills
             </h2>
-            <p className="text-sm">{skills.join(', ')}</p>
+            <p style={{
+              fontSize: '10pt',
+              color: '#333333',
+              margin: '0',
+              lineHeight: '1.6'
+            }}>
+              {skills.join('  •  ')}
+            </p>
           </div>
         )}
 
         {/* Projects */}
         {projects.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Projects
             </h2>
-            <div className="space-y-3">
-              {projects.map((project) => (
-                <div key={project.id}>
-                  <h3 className="font-bold">{project.name}</h3>
-                  <p className="text-sm">{project.description}</p>
+            <div>
+              {projects.map((project, index) => (
+                <div key={project.id} style={{ marginBottom: index < projects.length - 1 ? '12px' : '0' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                    <h3 style={{
+                      fontSize: '10.5pt',
+                      fontWeight: 'bold',
+                      margin: '0',
+                      color: '#1a1a1a'
+                    }}>
+                      {project.name}
+                    </h3>
+                    {project.link && (
+                      <span style={{ fontSize: '9pt', color: '#555555' }}>
+                        | {project.link}
+                      </span>
+                    )}
+                  </div>
+                  <p style={{
+                    fontSize: '9.5pt',
+                    color: '#333333',
+                    margin: '4px 0',
+                    lineHeight: '1.5'
+                  }}>
+                    {project.description}
+                  </p>
                   {project.techStack.length > 0 && (
-                    <p className="text-sm mt-1">
-                      <span className="font-semibold">Technologies:</span> {project.techStack.join(', ')}
+                    <p style={{
+                      fontSize: '9pt',
+                      color: '#555555',
+                      margin: '0'
+                    }}>
+                      <strong>Technologies:</strong> {project.techStack.join(', ')}
                     </p>
                   )}
                 </div>
@@ -137,26 +332,60 @@ const TemplateATS: React.FC<TemplateProps> = ({ data }) => {
         )}
 
         {/* Certifications */}
-        {certifications.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+        {certifications && certifications.length > 0 && (
+          <div style={{ marginBottom: '18px' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Certifications
             </h2>
-            <ul className="ml-4 space-y-1">
+            <ul style={{
+              margin: '0',
+              paddingLeft: '18px',
+              listStyleType: 'disc'
+            }}>
               {certifications.map((cert, idx) => (
-                <li key={idx} className="text-sm list-disc">{cert}</li>
+                <li key={idx} style={{
+                  fontSize: '10pt',
+                  color: '#333333',
+                  marginBottom: '3px'
+                }}>
+                  {cert}
+                </li>
               ))}
             </ul>
           </div>
         )}
 
         {/* Languages */}
-        {languages.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-base font-bold uppercase border-b border-black pb-1 mb-3">
+        {languages && languages.length > 0 && (
+          <div style={{ marginBottom: '0' }}>
+            <h2 style={{
+              fontSize: '11pt',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid #1a1a1a',
+              paddingBottom: '4px',
+              marginBottom: '10px',
+              letterSpacing: '1px',
+              color: '#1a1a1a'
+            }}>
               Languages
             </h2>
-            <p className="text-sm">{languages.join(', ')}</p>
+            <p style={{
+              fontSize: '10pt',
+              color: '#333333',
+              margin: '0'
+            }}>
+              {languages.join('  •  ')}
+            </p>
           </div>
         )}
       </div>
