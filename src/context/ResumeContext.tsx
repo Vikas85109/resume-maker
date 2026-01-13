@@ -7,7 +7,7 @@ import {
   IEducation,
   IProject,
 } from '@/types/resume';
-import { sampleResumeData } from '@/data/defaultResume';
+import { defaultResumeData } from '@/data/defaultResume';
 
 const STORAGE_KEY = 'resume-builder-data';
 
@@ -21,11 +21,11 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         try {
           return JSON.parse(saved);
         } catch {
-          return sampleResumeData;
+          return defaultResumeData;
         }
       }
     }
-    return sampleResumeData;
+    return defaultResumeData;
   });
 
   // Persist to localStorage
@@ -126,7 +126,7 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, []);
 
   const resetResume = useCallback(() => {
-    setResumeData(sampleResumeData);
+    setResumeData(defaultResumeData);
     localStorage.removeItem(STORAGE_KEY);
   }, []);
 
