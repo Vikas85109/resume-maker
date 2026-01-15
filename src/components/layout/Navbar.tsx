@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiX, FiUser, FiLogOut, FiFileText, FiSettings } from 'react-icons/fi';
 import { useAuth } from '@/context/AuthContext';
 
 const Navbar: React.FC = () => {
@@ -83,20 +83,30 @@ const Navbar: React.FC = () => {
                       <p className="text-xs text-slate-500">{user?.email}</p>
                     </div>
                     <Link
-                      to="/templates"
+                      to="/profile"
                       onClick={() => setShowUserMenu(false)}
                       className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                     >
                       <FiUser className="w-4 h-4" />
+                      My Profile
+                    </Link>
+                    <Link
+                      to="/templates"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                    >
+                      <FiFileText className="w-4 h-4" />
                       My Resumes
                     </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                    >
-                      <FiLogOut className="w-4 h-4" />
-                      Sign Out
-                    </button>
+                    <div className="border-t border-slate-100 mt-1 pt-1">
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        <FiLogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -151,6 +161,14 @@ const Navbar: React.FC = () => {
                     <p className="text-sm font-semibold text-slate-900">{user?.name}</p>
                     <p className="text-xs text-slate-500">{user?.email}</p>
                   </div>
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-2 flex items-center justify-center gap-2 px-4 py-3 text-slate-700 text-sm font-medium border border-slate-200 rounded-xl"
+                  >
+                    <FiUser className="w-4 h-4" />
+                    My Profile
+                  </Link>
                   <button
                     onClick={() => {
                       handleLogout();

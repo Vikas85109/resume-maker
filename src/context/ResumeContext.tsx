@@ -8,30 +8,40 @@ import {
   IProject,
 } from '@/types/resume';
 import { defaultResumeData } from '@/data/defaultResume';
+import { useAuth } from './AuthContext';
 
-const STORAGE_KEY = 'resume-builder-data';
+const STORAGE_KEY_PREFIX = 'resume-builder-data';
+
+const getStorageKey = (userId: string | null) => {
+  return userId ? `${STORAGE_KEY_PREFIX}-${userId}` : STORAGE_KEY_PREFIX;
+};
 
 const ResumeContext = createContext<IResumeContextType | undefined>(undefined);
 
 export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [resumeData, setResumeData] = useState<IResumeData>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch {
-          return defaultResumeData;
-        }
-      }
-    }
-    return defaultResumeData;
-  });
+  const { user } = useAuth();
+  const [resumeData, setResumeData] = useState<IResumeData>(defaultResumeData);
 
-  // Persist to localStorage
+  // Load resume data when user changes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(resumeData));
-  }, [resumeData]);
+    const storageKey = getStorageKey(user?.id || null);
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      try {
+        setResumeData(JSON.parse(saved));
+      } catch {
+        setResumeData(defaultResumeData);
+      }
+    } else {
+      setResumeData(defaultResumeData);
+    }
+  }, [user?.id]);
+
+  // Persist to localStorage when data changes
+  useEffect(() => {
+    const storageKey = getStorageKey(user?.id || null);
+    localStorage.setItem(storageKey, JSON.stringify(resumeData));
+  }, [resumeData, user?.id]);
 
   const updatePersonalInfo = useCallback((info: Partial<IPersonalInfo>) => {
     setResumeData((prev) => ({

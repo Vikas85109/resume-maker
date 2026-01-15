@@ -12,6 +12,7 @@ export interface IAuthContext {
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
+  updateProfile: (data: { name?: string }) => Promise<{ success: boolean; error?: string }>;
 }
 
 export interface IStoredUser extends IUser {
