@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate('/');
+  };
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -53,14 +63,59 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button & Auth */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/templates"
-              className="px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 transform hover:-translate-y-0.5"
-            >
-              Create CV Free
-            </Link>
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="font-medium">{user?.name?.split(' ')[0]}</span>
+                </button>
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                    <div className="px-4 py-2 border-b border-slate-100">
+                      <p className="text-sm font-semibold text-slate-900">{user?.name}</p>
+                      <p className="text-xs text-slate-500">{user?.email}</p>
+                    </div>
+                    <Link
+                      to="/templates"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                    >
+                      <FiUser className="w-4 h-4" />
+                      My Resumes
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                    >
+                      <FiLogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-2 text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 transform hover:-translate-y-0.5"
+                >
+                  Sign Up Free
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,13 +145,40 @@ const Navbar: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                to="/templates"
-                onClick={() => setIsOpen(false)}
-                className="mt-2 px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-semibold rounded-xl text-center"
-              >
-                Create CV Free
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <div className="mt-2 px-4 py-3 bg-slate-100 rounded-xl">
+                    <p className="text-sm font-semibold text-slate-900">{user?.name}</p>
+                    <p className="text-xs text-slate-500">{user?.email}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                    className="mt-2 px-4 py-3 text-red-600 text-sm font-medium text-center border border-red-200 rounded-xl"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-2 px-4 py-3 text-slate-700 text-sm font-medium text-center border border-slate-200 rounded-xl"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-2 px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-semibold rounded-xl text-center"
+                  >
+                    Sign Up Free
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
