@@ -16,7 +16,7 @@ const TemplateModern: React.FC<TemplateProps> = ({ data }) => {
       className="a4-page bg-white shadow-lg"
       style={{
         width: '794px',
-        minHeight: '1123px',
+        height: '1123px',
         fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
