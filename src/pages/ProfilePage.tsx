@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FiCalendar, FiEdit2, FiSave, FiFileText,
   FiDownload, FiEye, FiTrash2, FiClock, FiCreditCard, FiSettings,
@@ -10,14 +10,17 @@ import { useResume } from '@/context/ResumeContext';
 import { useApp } from '@/context/AppContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { getDrafts, deleteDraft, getDraftById } from '@/utils/draftStorage';
 import type { ISavedCV, IDraft, IInvoice } from '@/types/auth';
+import type { IResumeData, TemplateId } from '@/types/resume';
 
 type TabType = 'cvs' | 'drafts' | 'invoices' | 'settings';
 
 const ProfilePage: React.FC = () => {
   const { user, updateProfile, changePassword } = useAuth();
-  const { resumeData } = useResume();
-  const { selectedTemplate } = useApp();
+  const { resumeData, updatePersonalInfo, updateSummary, updateSkills, updateCertifications, updateLanguages } = useResume();
+  const { selectedTemplate, setSelectedTemplate } = useApp();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('cvs');
 
   // Profile editing state
@@ -36,7 +39,16 @@ const ProfilePage: React.FC = () => {
   // Profile picture
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock data for demonstration
+  // Drafts state
+  const [drafts, setDrafts] = useState<IDraft[]>([]);
+
+  // Load drafts on mount and when user changes
+  useEffect(() => {
+    const loadedDrafts = getDrafts(user?.id || null);
+    setDrafts(loadedDrafts);
+  }, [user?.id]);
+
+  // Mock data for CVs (current resume if it has data)
   const savedCVs: ISavedCV[] = resumeData.personalInfo.fullName ? [
     {
       id: '1',
@@ -47,9 +59,35 @@ const ProfilePage: React.FC = () => {
     }
   ] : [];
 
-  const drafts: IDraft[] = [];
-
   const invoices: IInvoice[] = [];
+
+  // Handle continue editing draft
+  const handleContinueDraft = (draftId: string) => {
+    const draft = getDraftById(user?.id || null, draftId);
+    if (draft && draft.data) {
+      const draftData = draft.data as IResumeData;
+      // Load draft data into resume context
+      updatePersonalInfo(draftData.personalInfo);
+      updateSummary(draftData.summary);
+      updateSkills(draftData.skills);
+      updateCertifications(draftData.certifications);
+      updateLanguages(draftData.languages);
+      // Set the template
+      setSelectedTemplate(draft.templateId as TemplateId);
+      // Navigate to editor
+      navigate('/editor');
+    }
+  };
+
+  // Handle delete draft
+  const handleDeleteDraft = (draftId: string) => {
+    const success = deleteDraft(user?.id || null, draftId);
+    if (success) {
+      setDrafts(drafts.filter(d => d.id !== draftId));
+      setMessage({ type: 'success', text: 'Draft deleted successfully' });
+      setTimeout(() => setMessage(null), 3000);
+    }
+  };
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -341,7 +379,7 @@ const ProfilePage: React.FC = () => {
                           <div className="flex-1 min-w-0">
                             <h3 className="font-semibold text-slate-900 truncate">{draft.name}</h3>
                             <p className="text-sm text-slate-500 mt-0.5">
-                              Created {formatDate(draft.createdAt)}
+                              Template: <span className="capitalize">{draft.templateId}</span> &middot; Created {formatDate(draft.createdAt)}
                             </p>
                             <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
                               <FiClock className="w-3 h-3" />
@@ -350,11 +388,13 @@ const ProfilePage: React.FC = () => {
                           </div>
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={() => handleContinueDraft(draft.id)}
                               className="px-3 py-1.5 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                             >
                               Continue Editing
                             </button>
                             <button
+                              onClick={() => handleDeleteDraft(draft.id)}
                               className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                               title="Delete"
                             >

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiDownload, FiArrowLeft, FiUser, FiFileText, FiBriefcase, FiBookOpen, FiCode, FiFolder, FiCheck } from 'react-icons/fi';
+import { FiDownload, FiArrowLeft, FiUser, FiFileText, FiBriefcase, FiBookOpen, FiCode, FiFolder, FiCheck, FiSave } from 'react-icons/fi';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import PersonalInfoForm from '@/components/forms/PersonalInfoForm';
@@ -12,6 +12,8 @@ import ProjectsForm from '@/components/forms/ProjectsForm';
 import { templateComponents } from '@/components/templates';
 import { useApp } from '@/context/AppContext';
 import { useResume } from '@/context/ResumeContext';
+import { useAuth } from '@/context/AuthContext';
+import { saveDraft } from '@/utils/draftStorage';
 
 type StepId = 'personal' | 'summary' | 'experience' | 'education' | 'skills' | 'projects';
 
@@ -25,11 +27,29 @@ interface Step {
 const ResumeEditor: React.FC = () => {
   const { selectedTemplate } = useApp();
   const { resumeData } = useResume();
+  const { user } = useAuth();
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [draftSaved, setDraftSaved] = useState(false);
   const [activeStep, setActiveStep] = useState<StepId>('personal');
 
   const TemplateComponent = templateComponents[selectedTemplate];
+
+  const handleSaveDraft = () => {
+    setIsSavingDraft(true);
+    const draftName = resumeData.personalInfo.fullName
+      ? `${resumeData.personalInfo.fullName}'s Resume`
+      : 'Untitled Resume';
+
+    saveDraft(user?.id || null, draftName, selectedTemplate, resumeData);
+
+    setTimeout(() => {
+      setIsSavingDraft(false);
+      setDraftSaved(true);
+      setTimeout(() => setDraftSaved(false), 2000);
+    }, 500);
+  };
 
   const steps: Step[] = [
     { id: 'personal', label: 'Personal Info', icon: FiUser, component: PersonalInfoForm },
@@ -156,26 +176,58 @@ const ResumeEditor: React.FC = () => {
             </div>
 
             {/* Right */}
-            <button
-              onClick={handleDownloadPDF}
-              disabled={isExporting}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
-            >
-              {isExporting ? (
-                <>
-                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  <span className="hidden sm:block">Generating...</span>
-                </>
-              ) : (
-                <>
-                  <FiDownload className="w-5 h-5" />
-                  <span className="hidden sm:block">Download PDF</span>
-                </>
-              )}
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleSaveDraft}
+                disabled={isSavingDraft}
+                className={`flex items-center gap-2 px-4 py-2.5 font-medium rounded-xl transition-all duration-200 ${
+                  draftSaved
+                    ? 'bg-green-100 text-green-700 border border-green-200'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                }`}
+              >
+                {isSavingDraft ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    <span className="hidden sm:block">Saving...</span>
+                  </>
+                ) : draftSaved ? (
+                  <>
+                    <FiCheck className="w-4 h-4" />
+                    <span className="hidden sm:block">Saved!</span>
+                  </>
+                ) : (
+                  <>
+                    <FiSave className="w-4 h-4" />
+                    <span className="hidden sm:block">Save Draft</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={handleDownloadPDF}
+                disabled={isExporting}
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                {isExporting ? (
+                  <>
+                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    <span className="hidden sm:block">Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <FiDownload className="w-5 h-5" />
+                    <span className="hidden sm:block">Download PDF</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </header>
