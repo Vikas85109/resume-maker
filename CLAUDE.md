@@ -30,6 +30,7 @@ TypeScript React CV/resume builder application. Users browse templates, select o
 - `src/types/resume.ts` - All TypeScript interfaces (`IResumeData`, `TemplateId`, etc.) and `generateId()` utility
 - `src/context/AppContext.tsx` - Navigation state; use via `useApp()` hook
 - `src/context/ResumeContext.tsx` - Resume data with localStorage persistence (`resume-builder-data` key); use via `useResume()` hook
+- `src/context/AuthContext.tsx` - Authentication state with localStorage persistence; use via `useAuth()` hook
 - `src/components/templates/index.ts` - Exports `templateComponents` map for dynamic template rendering
 - `src/utils/pdfExport.ts` - PDF generation utilities
 - `src/data/defaultResume.ts` - Default/sample resume data and template metadata list
@@ -38,18 +39,22 @@ TypeScript React CV/resume builder application. Users browse templates, select o
 
 Routes defined in `src/App.tsx`:
 - `/` - Homepage with hero, features, testimonials
-- `/templates` - Template selection page
-- `/editor` - Resume editor with step-by-step wizard
+- `/templates` - Template selection page (protected)
+- `/editor` - Resume editor with step-by-step wizard (protected)
+- `/profile` - User profile page (protected)
 - `/about` - About us page
 - `/pricing` - Pricing information
 - `/faq` - Frequently asked questions
 - `/contact` - Contact form
+- `/login` - Login page
+- `/register` - Registration page
 
 ### State Management
 
-Two Context providers wrap the app:
+Three Context providers wrap the app (see `src/main.tsx`):
+- **AuthContext**: User authentication with `login`, `register`, `logout`, `updateProfile`
 - **AppContext**: `currentStep` ('templates' | 'editor') and `selectedTemplate`
-- **ResumeContext**: `resumeData` with CRUD operations for each section, auto-persists to localStorage
+- **ResumeContext**: `resumeData` with CRUD operations for each section, auto-persists to localStorage per user
 
 ### Templates
 
@@ -66,7 +71,7 @@ const Component = templateComponents[templateId]; // templateId: TemplateId
 
 ### PDF Export
 
-`exportToPdf()` in `src/utils/pdfExport.ts` and inline in `ResumeEditor.tsx` finds `.a4-page` elements, captures via html2canvas at high quality, outputs A4 PDF via jsPDF.
+`exportToPdf()` in `src/utils/pdfExport.ts` finds `.a4-page` elements, captures via dom-to-image-more at high quality, outputs A4 PDF via jsPDF.
 
 ### Components Structure
 
@@ -74,12 +79,15 @@ const Component = templateComponents[templateId]; // templateId: TemplateId
 - `src/components/forms/` - Form components for each resume section (PersonalInfoForm, SummaryForm, ExperienceForm, EducationForm, SkillsForm, ProjectsForm)
 - `src/components/templates/` - Resume templates
 - `src/components/ui/` - Reusable UI components (Button, Input, Card, Accordion, etc.)
+- `src/components/ProtectedRoute.tsx` - Route guard for authenticated routes
 
 ### Pages
 
 - `HomePage.tsx` - Landing page with hero, features, how-it-works, testimonials
 - `TemplateSelection.tsx` - Browse and select resume templates
 - `ResumeEditor.tsx` - Step-by-step wizard for editing resume with live preview
+- `LoginPage.tsx` / `RegisterPage.tsx` - Authentication pages
+- `ProfilePage.tsx` - User profile management
 - `AboutPage.tsx` - Company information
 - `PricingPage.tsx` - Pricing plans (currently free)
 - `FAQPage.tsx` - Frequently asked questions with search

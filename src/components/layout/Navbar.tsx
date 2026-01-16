@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiMenu, FiX, FiUser, FiLogOut, FiFileText, FiSettings } from 'react-icons/fi';
+import { FiMenu, FiX, FiUser, FiLogOut, FiFileText } from 'react-icons/fi';
 import { useAuth } from '@/context/AuthContext';
 
 const Navbar: React.FC = () => {

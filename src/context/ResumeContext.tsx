@@ -137,8 +137,9 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const resetResume = useCallback(() => {
     setResumeData(defaultResumeData);
-    localStorage.removeItem(STORAGE_KEY);
-  }, []);
+    const storageKey = getStorageKey(user?.id || null);
+    localStorage.removeItem(storageKey);
+  }, [user?.id]);
 
   const value: IResumeContextType = {
     resumeData,

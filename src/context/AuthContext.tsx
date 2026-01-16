@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { IUser, IAuthContext, IStoredUser } from '@/types/auth';
+import type { IUser, IAuthContext, IStoredUser } from '@/types/auth';
 
 const AUTH_STORAGE_KEY = 'resume-builder-auth';
 const USERS_STORAGE_KEY = 'resume-builder-users';
@@ -89,7 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem(AUTH_STORAGE_KEY);
   }, []);
 
-  const updateProfile = useCallback(async (data: { name?: string }): Promise<{ success: boolean; error?: string }> => {
+  const updateProfile = useCallback(async (data: { name?: string; profilePicture?: string }): Promise<{ success: boolean; error?: string }> => {
     if (!user) {
       return { success: false, error: 'Not authenticated' };
     }
@@ -104,12 +104,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (data.name) {
       users[userIndex].name = data.name;
     }
+    if (data.profilePicture !== undefined) {
+      (users[userIndex] as IStoredUser & { profilePicture?: string }).profilePicture = data.profilePicture;
+    }
 
     saveUsers(users);
 
     const updatedUser = { ...user, ...data };
     setUser(updatedUser);
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+
+    return { success: true };
+  }, [user]);
+
+  const changePassword = useCallback(async (currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> => {
+    if (!user) {
+      return { success: false, error: 'Not authenticated' };
+    }
+
+    const users = getUsers();
+    const userIndex = users.findIndex(u => u.id === user.id);
+
+    if (userIndex === -1) {
+      return { success: false, error: 'User not found' };
+    }
+
+    if (users[userIndex].password !== currentPassword) {
+      return { success: false, error: 'Current password is incorrect' };
+    }
+
+    if (newPassword.length < 6) {
+      return { success: false, error: 'New password must be at least 6 characters' };
+    }
+
+    users[userIndex].password = newPassword;
+    saveUsers(users);
 
     return { success: true };
   }, [user]);
@@ -122,6 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     register,
     logout,
     updateProfile,
+    changePassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
